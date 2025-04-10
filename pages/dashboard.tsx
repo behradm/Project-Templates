@@ -1,92 +1,137 @@
-import { useSession, signOut } from 'next-auth/react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
+import { GetServerSideProps } from 'next'
+import { getSession, signOut } from 'next-auth/react'
 import { useState } from 'react'
+import { 
+  Dialog, 
+  DialogTrigger, 
+  DialogContent, 
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter 
+} from '../components/ui/Dialog'
+import { 
+  Tabs, 
+  TabsList, 
+  TabsTrigger, 
+  TabsContent 
+} from '../components/ui/Tabs'
+import { 
+  ToastProvider, 
+  Toast, 
+  ToastTitle, 
+  ToastDescription,
+  ToastAction,
+  ToastClose,
+  ToastViewport
+} from '../components/ui/Toast'
 
 export default function Dashboard() {
-  const { data: session, status } = useSession()
-  const router = useRouter()
-  const [aiResponse, setAiResponse] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [showToast, setShowToast] = useState(false);
+  
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <ToastProvider>
+        <header className="bg-white shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-slate-900">Journal Dashboard</h1>
+            <button
+              onClick={() => signOut({ callbackUrl: '/' })}
+              className="px-4 py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition-colors"
+            >
+              Sign Out
+            </button>
+          </div>
+        </header>
+        
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white shadow-md rounded-lg p-6 mb-8">
+            <h2 className="text-xl font-semibold mb-4">Welcome to your journal dashboard!</h2>
+            <p className="text-slate-600 mb-6">
+              This page demonstrates some of the Radix UI components we've added to the project.
+            </p>
+            
+            {/* Dialog Example */}
+            <div className="mb-8">
+              <h3 className="text-lg font-medium mb-3">Dialog Component</h3>
+              <Dialog>
+                <DialogTrigger className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+                  Open Dialog
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Welcome to Radix UI</DialogTitle>
+                    <DialogDescription>
+                      This is a dialog component from Radix UI Primitives, styled with Tailwind CSS.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="py-4">
+                    <p>Dialogs are perfect for modal content like forms, confirmations, and alerts.</p>
+                  </div>
+                  <DialogFooter>
+                    <button 
+                      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                      onClick={() => setShowToast(true)}
+                    >
+                      Show Toast
+                    </button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </div>
+            
+            {/* Tabs Example */}
+            <div className="mb-8">
+              <h3 className="text-lg font-medium mb-3">Tabs Component</h3>
+              <Tabs defaultValue="entries">
+                <TabsList>
+                  <TabsTrigger value="entries">Journal Entries</TabsTrigger>
+                  <TabsTrigger value="stats">Statistics</TabsTrigger>
+                  <TabsTrigger value="settings">Settings</TabsTrigger>
+                </TabsList>
+                <TabsContent value="entries" className="p-4 border rounded-md mt-2">
+                  <h4 className="font-medium mb-2">Your Recent Journal Entries</h4>
+                  <p className="text-slate-600">You haven't created any journal entries yet.</p>
+                </TabsContent>
+                <TabsContent value="stats" className="p-4 border rounded-md mt-2">
+                  <h4 className="font-medium mb-2">Your Journaling Statistics</h4>
+                  <p className="text-slate-600">You'll see your journaling patterns here once you start writing.</p>
+                </TabsContent>
+                <TabsContent value="settings" className="p-4 border rounded-md mt-2">
+                  <h4 className="font-medium mb-2">Journal Settings</h4>
+                  <p className="text-slate-600">Customize your journaling experience here.</p>
+                </TabsContent>
+              </Tabs>
+            </div>
+          </div>
+        </main>
+        
+        {showToast && (
+          <Toast open={showToast} onOpenChange={setShowToast}>
+            <ToastTitle>Success!</ToastTitle>
+            <ToastDescription>The toast notification has been triggered.</ToastDescription>
+            <ToastClose />
+          </Toast>
+        )}
+        <ToastViewport />
+      </ToastProvider>
+    </div>
+  )
+}
 
-  // If user is not logged in, redirect to home
-  if (status === 'unauthenticated') {
-    router.push('/')
-    return null
-  }
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
 
-  // Handle loading state
-  if (status === 'loading') {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <p className="text-lg">Loading...</p>
-      </div>
-    )
-  }
-
-  const handleAiRequest = async () => {
-    setIsLoading(true)
-    try {
-      const response = await fetch('/api/openai', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: 'Hello from the dashboard!' }),
-      })
-      const data = await response.json()
-      setAiResponse(data.message)
-    } catch (error) {
-      console.error('Error calling OpenAI API:', error)
-      setAiResponse('Error calling OpenAI API. Please check your API key.')
-    } finally {
-      setIsLoading(false)
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
     }
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <Head>
-        <title>Dashboard | Next.js Fullstack Template</title>
-      </Head>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="py-10">
-          <header className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-            <button
-              onClick={() => signOut({ callbackUrl: '/' })}
-              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            >
-              Sign out
-            </button>
-          </header>
-          
-          <main>
-            <div className="mt-8 bg-white p-6 shadow rounded-lg">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                Welcome, {session?.user?.name || session?.user?.email || 'User'}!
-              </h2>
-              <p className="mb-4">
-                You've successfully logged in to the Next.js Fullstack Template.
-              </p>
-              <div className="border-t border-gray-200 pt-4 mt-4">
-                <h3 className="text-lg font-medium mb-2">OpenAI Integration Test</h3>
-                <button
-                  onClick={handleAiRequest}
-                  disabled={isLoading}
-                  className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300"
-                >
-                  {isLoading ? 'Loading...' : 'Test OpenAI API'}
-                </button>
-                {aiResponse && (
-                  <div className="mt-4 p-4 bg-gray-50 rounded-md">
-                    <p className="text-gray-700">Response: {aiResponse}</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
-  )
+  return {
+    props: { session },
+  }
 }
