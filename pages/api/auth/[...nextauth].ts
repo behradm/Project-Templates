@@ -5,6 +5,16 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "../../../lib/prisma"
 import bcrypt from "bcryptjs"
 
+// Add type augmentation for the User object
+declare module "next-auth" {
+  interface User {
+    id: string;
+    email?: string | null;
+    name?: string | null;
+    image?: string | null;
+  }
+}
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -20,7 +30,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null
+          throw new Error("Email and password are required")
         }
 
         const user = await prisma.user.findUnique({
@@ -28,19 +38,7 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (!user || !user.password) {
-          // If in sign-up mode, create a new user
-          // Note: In a production app, you would use a separate endpoint for registration
-          if (credentials.isSignUp === "true") {
-            const hashedPassword = await bcrypt.hash(credentials.password, 10)
-            const newUser = await prisma.user.create({
-              data: {
-                email: credentials.email,
-                password: hashedPassword
-              }
-            })
-            return newUser
-          }
-          return null
+          throw new Error("Invalid email or password")
         }
 
         const isPasswordValid = await bcrypt.compare(
@@ -49,7 +47,7 @@ export const authOptions: NextAuthOptions = {
         )
 
         if (!isPasswordValid) {
-          return null
+          throw new Error("Invalid email or password")
         }
 
         return user
@@ -79,6 +77,7 @@ export const authOptions: NextAuthOptions = {
     error: '/',
   },
   secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === 'development',
 }
 
 export default NextAuth(authOptions)

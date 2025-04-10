@@ -1,7 +1,6 @@
 import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import * as Button from '@radix-ui/react-button'
 import { useState } from 'react'
 
 export default function Dashboard() {
@@ -53,12 +52,12 @@ export default function Dashboard() {
         <div className="py-10">
           <header className="flex justify-between items-center">
             <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-            <Button.Root
+            <button
               onClick={() => signOut({ callbackUrl: '/' })}
               className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               Sign out
-            </Button.Root>
+            </button>
           </header>
           
           <main>
@@ -71,13 +70,13 @@ export default function Dashboard() {
               </p>
               <div className="border-t border-gray-200 pt-4 mt-4">
                 <h3 className="text-lg font-medium mb-2">OpenAI Integration Test</h3>
-                <Button.Root
+                <button
                   onClick={handleAiRequest}
                   disabled={isLoading}
                   className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300"
                 >
                   {isLoading ? 'Loading...' : 'Test OpenAI API'}
-                </Button.Root>
+                </button>
                 {aiResponse && (
                   <div className="mt-4 p-4 bg-gray-50 rounded-md">
                     <p className="text-gray-700">Response: {aiResponse}</p>
