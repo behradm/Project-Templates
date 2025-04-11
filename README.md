@@ -99,3 +99,50 @@ vercel
 ## License
 
 This project is licensed under the MIT License.
+
+## Running Multiple Next.js Applications Simultaneously
+
+If you're working on multiple Next.js projects and need to run them on different ports, follow these steps:
+
+### Changing the Default Port
+
+1. **Modify the development script in package.json**
+   ```bash
+   # Change this line in package.json
+   "dev": "next dev -p 3001"  # Replace 3001 with your desired port
+   ```
+
+2. **Update environment variables**
+   - In your `.env` file, update `NEXTAUTH_URL` to match your custom port:
+   ```
+   NEXTAUTH_URL="http://localhost:3001"  # Replace 3001 with your chosen port
+   ```
+
+3. **Configure OAuth providers (if used)**
+   - Update OAuth application settings (e.g., GitHub, Google) with the custom port:
+     - Homepage URL: `http://localhost:3001`
+     - Authorization callback URL: `http://localhost:3001/api/auth/callback/[provider]`
+   - Ensure URLs use HTTP, not HTTPS, for local development to avoid certificate errors
+
+4. **Run database migrations (if using Prisma)**
+   ```bash
+   npx prisma db push
+   ```
+
+5. **Start the application**
+   ```bash
+   npm run dev  # Uses the port specified in package.json
+   # OR
+   npx next dev -p 3001  # Directly specify the port
+   ```
+
+6. **Troubleshooting**
+   - If you encounter authentication errors, try clearing your browser cookies for localhost
+   - If a port is already in use, you can kill the process using:
+     ```bash
+     # On macOS/Linux:
+     lsof -i :3001 -t | xargs kill
+     # On Windows:
+     netstat -ano | findstr :3001
+     taskkill /PID [PID] /F
+     ```
