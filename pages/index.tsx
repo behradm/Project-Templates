@@ -49,8 +49,8 @@ export default function LandingPage() {
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
             <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
               <h1 className="text-4xl tracking-tight text-white sm:text-5xl md:text-6xl">
-                <span className="block">Launch Your Next.js App</span>
-                <span className="block text-[#FA3811]">In Minutes, Not Days</span>
+                <span>Launch Your Next.js App </span>
+                <span className="text-[#FA3811]">In Days</span>
               </h1>
               <p className="mt-6 text-xl text-gray-300">
                 Stop wasting time configuring boilerplate code. Our pre-built fullstack template gives entrepreneurs and developers everything they need to start building instead of setting up.
