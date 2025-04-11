@@ -1,191 +1,359 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Head from 'next/head';
-import { useSession, signIn } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-export default function Home() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+export default function LandingPage() {
   const router = useRouter();
-  const { data: session } = useSession();
   
-  // Redirect if already logged in
-  React.useEffect(() => {
-    if (session) {
-      router.push('/dashboard');
-    }
-  }, [session, router]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setMessage('');
-    setIsLoading(true);
-    
-    try {
-      if (isSignUp) {
-        // Register new user
-        const response = await fetch('/api/auth/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-          throw new Error(data.message || 'Something went wrong');
-        }
-        
-        setMessage('Account created! You can now sign in.');
-        setIsSignUp(false); // Switch to sign in mode
-      } else {
-        // Sign in existing user
-        const result = await signIn('credentials', {
-          redirect: false,
-          email,
-          password,
-        });
-        
-        if (result?.error) {
-          throw new Error(result.error);
-        }
-        
-        if (result?.ok) {
-          router.push('/dashboard');
-        }
-      }
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
-    <React.Fragment>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <Head>
-        <title>Next.js Fullstack Template</title>
+        <title>Next.js Fullstack Template | Launch Your App Faster</title>
+        <meta name="description" content="A complete starter template for building modern web applications with Next.js" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <h1 className="text-center text-3xl font-extrabold text-gray-900">Next.js Fullstack Template</h1>
-        <h2 className="mt-6 text-center text-2xl font-bold text-gray-900">
-          {isSignUp ? 'Create an account' : 'Sign in to your account'}
-        </h2>
-        
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            {error && (
-              <div className="mb-4 bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-700">
-                <p>{error}</p>
-              </div>
-            )}
-            
-            {message && (
-              <div className="mb-4 bg-green-50 border-l-4 border-green-500 p-4 text-sm text-green-700">
-                <p>{message}</p>
-              </div>
-            )}
-            
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email address
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-              </div>
 
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Password
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete={isSignUp ? 'new-password' : 'current-password'}
-                    required
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-                >
-                  {isLoading 
-                    ? 'Processing...' 
-                    : isSignUp 
-                      ? 'Sign up' 
-                      : 'Sign in'}
-                </button>
-              </div>
-            </form>
-
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Or continue with</span>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <button
-                  onClick={() => signIn('github', { callbackUrl: '/dashboard' })}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                >
-                  <span className="mr-2">
-                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                      <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
-                    </svg>
-                  </span>
-                  Sign in with GitHub
-                </button>
+      {/* Navigation */}
+      <nav className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex">
+              <div className="flex-shrink-0 flex items-center">
+                <span className="text-xl font-bold text-gray-900">Next.js Template</span>
               </div>
             </div>
-
-            <div className="mt-6 text-center">
-              <button
-                type="button"
-                className="text-sm text-blue-600 hover:text-blue-500"
-                onClick={() => {
-                  setIsSignUp(!isSignUp);
-                  setError('');
-                  setMessage('');
-                }}
+            <div className="flex items-center">
+              <a 
+                href="https://github.com/behradm/Project-Templates" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
               >
-                {isSignUp 
-                  ? "Already have an account? Sign in"
-                  : "Don't have an account? Sign up"}
-              </button>
+                GitHub
+              </a>
+              <a 
+                href="/api/auth/signin"
+                className="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+              >
+                Sign In
+              </a>
             </div>
           </div>
         </div>
-      </div>
-    </React.Fragment>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+            <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+              <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+                <span className="block">Launch Your Next.js App</span>
+                <span className="block text-blue-600">In Minutes, Not Days</span>
+              </h1>
+              <p className="mt-6 text-xl text-gray-500">
+                Stop wasting time configuring boilerplate code. Our pre-built fullstack template gives entrepreneurs and developers everything they need to start building instead of setting up.
+              </p>
+              <div className="mt-10">
+                <a
+                  href="https://github.com/behradm/Project-Templates"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+                >
+                  Download from GitHub
+                </a>
+              </div>
+            </div>
+            <div className="mt-12 lg:mt-0 lg:col-span-6">
+              <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden shadow-xl">
+                <div className="px-4 py-8 sm:px-10">
+                  <div className="border-2 border-dashed border-gray-300 rounded-md p-6 flex items-center justify-center">
+                    <div className="space-y-6 text-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                      </svg>
+                      <p className="text-sm text-gray-600">
+                        Modern Next.js template with authentication, database, and styling pre-configured
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:text-center">
+            <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Complete Solution</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              What's Included
+            </p>
+            <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+              Everything you need to build modern, full-stack web applications
+            </p>
+          </div>
+
+          <div className="mt-10">
+            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="pt-6">
+                <div className="flow-root bg-white rounded-lg px-6 pb-8 shadow-md">
+                  <div className="-mt-6">
+                    <div className="inline-flex items-center justify-center p-3 bg-blue-600 rounded-md shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                    </div>
+                    <h3 className="mt-6 text-lg font-medium text-gray-900">
+                      Next.js Framework
+                    </h3>
+                    <p className="mt-3 text-base text-gray-500">
+                      React framework for production with server-side rendering, file-based routing, and API routes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <div className="flow-root bg-white rounded-lg px-6 pb-8 shadow-md">
+                  <div className="-mt-6">
+                    <div className="inline-flex items-center justify-center p-3 bg-blue-600 rounded-md shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                      </svg>
+                    </div>
+                    <h3 className="mt-6 text-lg font-medium text-gray-900">
+                      NeonDB & Prisma
+                    </h3>
+                    <p className="mt-3 text-base text-gray-500">
+                      Serverless PostgreSQL with modern ORM for type-safe database access.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <div className="flow-root bg-white rounded-lg px-6 pb-8 shadow-md">
+                  <div className="-mt-6">
+                    <div className="inline-flex items-center justify-center p-3 bg-blue-600 rounded-md shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                      </svg>
+                    </div>
+                    <h3 className="mt-6 text-lg font-medium text-gray-900">
+                      Authentication
+                    </h3>
+                    <p className="mt-3 text-base text-gray-500">
+                      NextAuth.js with GitHub OAuth and email/password authentication.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <div className="flow-root bg-white rounded-lg px-6 pb-8 shadow-md">
+                  <div className="-mt-6">
+                    <div className="inline-flex items-center justify-center p-3 bg-blue-600 rounded-md shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                      </svg>
+                    </div>
+                    <h3 className="mt-6 text-lg font-medium text-gray-900">
+                      Tailwind CSS & Radix UI
+                    </h3>
+                    <p className="mt-3 text-base text-gray-500">
+                      Utility-first CSS framework combined with accessible UI components.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <div className="flow-root bg-white rounded-lg px-6 pb-8 shadow-md">
+                  <div className="-mt-6">
+                    <div className="inline-flex items-center justify-center p-3 bg-blue-600 rounded-md shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                    </div>
+                    <h3 className="mt-6 text-lg font-medium text-gray-900">
+                      AI Integration
+                    </h3>
+                    <p className="mt-3 text-base text-gray-500">
+                      Ready-to-use OpenAI API integration for building AI-powered features.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <div className="flow-root bg-white rounded-lg px-6 pb-8 shadow-md">
+                  <div className="-mt-6">
+                    <div className="inline-flex items-center justify-center p-3 bg-blue-600 rounded-md shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h3 className="mt-6 text-lg font-medium text-gray-900">
+                      TypeScript
+                    </h3>
+                    <p className="mt-3 text-base text-gray-500">
+                      Static type checking for improved developer experience and code quality.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Getting Started Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Easy Setup</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              How to Get Started
+            </p>
+            <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+              Get your project up and running in three simple steps
+            </p>
+          </div>
+
+          <div className="mt-12">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+              <div className="bg-gray-50 rounded-lg shadow-md p-6">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
+                  <span className="font-bold text-lg">1</span>
+                </div>
+                <h3 className="mt-4 text-lg font-medium text-gray-900">Download the repo from GitHub</h3>
+                <p className="mt-2 text-base text-gray-500">
+                  Clone the repository to your local machine using Git or download it directly from GitHub.
+                </p>
+                <div className="mt-4">
+                  <pre className="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto">
+                    git clone https://github.com/behradm/Project-Templates.git
+                  </pre>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg shadow-md p-6">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
+                  <span className="font-bold text-lg">2</span>
+                </div>
+                <h3 className="mt-4 text-lg font-medium text-gray-900">Run it on your IDE or cloud environment</h3>
+                <p className="mt-2 text-base text-gray-500">
+                  Open the project in your favorite IDE like Cursor or deploy it to a cloud development environment with Windsurf.
+                </p>
+                <div className="mt-4 space-y-2">
+                  <p className="text-sm text-gray-700">Install dependencies and start the development server:</p>
+                  <pre className="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto">
+                    npm install
+                    npm run dev
+                  </pre>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg shadow-md p-6">
+                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-600 text-white">
+                  <span className="font-bold text-lg">3</span>
+                </div>
+                <h3 className="mt-4 text-lg font-medium text-gray-900">Read the README.md file for instructions</h3>
+                <p className="mt-2 text-base text-gray-500">
+                  Follow the comprehensive setup guide in the README to configure your environment variables and deploy your app.
+                </p>
+                <ul className="mt-4 space-y-2 text-sm text-gray-700 list-disc list-inside">
+                  <li>Configure your database connection</li>
+                  <li>Set up authentication providers</li>
+                  <li>Customize as needed for your project</li>
+                  <li>Deploy to your preferred hosting platform</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-800">
+        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+            <div className="space-y-4 xl:col-span-1">
+              <h3 className="text-2xl font-bold text-white">Next.js Templates</h3>
+              <p className="text-gray-300 text-base">
+                A product of Bonanza Studio
+              </p>
+              <p className="text-gray-400 text-sm mt-4">
+                Rooted in Berlin's vibrant startup ecosystem, we provide CIOs and CDOs immediate access to a fully integrated team of researchers, UX designers, product strategists, and AI technologists. We rapidly design and deliver novel, AI-powered product experiences that redefine industries and outpace competitors.
+              </p>
+              <div className="mt-4">
+                <a
+                  href="https://www.bonanza-studios.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300"
+                >
+                  Visit Bonanza Studios
+                </a>
+              </div>
+            </div>
+            <div className="mt-12 xl:mt-0 xl:col-span-2">
+              <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                    Resources
+                  </h3>
+                  <ul className="mt-4 space-y-4">
+                    <li>
+                      <a href="https://nextjs.org/docs" className="text-base text-gray-300 hover:text-white">
+                        Next.js Docs
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://tailwindcss.com/docs" className="text-base text-gray-300 hover:text-white">
+                        Tailwind CSS
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.prisma.io/docs" className="text-base text-gray-300 hover:text-white">
+                        Prisma Documentation
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                    Support
+                  </h3>
+                  <ul className="mt-4 space-y-4">
+                    <li>
+                      <a href="https://github.com/behradm/Project-Templates/issues" className="text-base text-gray-300 hover:text-white">
+                        GitHub Issues
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://github.com/behradm/Project-Templates" className="text-base text-gray-300 hover:text-white">
+                        Star on GitHub
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 border-t border-gray-700 pt-8">
+            <p className="text-base text-gray-400 xl:text-center">
+              &copy; {new Date().getFullYear()} Bonanza Studios. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
