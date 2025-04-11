@@ -1,0 +1,50 @@
+/* Import Questrial font */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+/* Custom color variables */
+:root {
+  --bg-primary: #032024;
+  --bg-secondary: #011B1F;
+  --accent: #FA3811;
+  --text-light: #FFFFFF;
+  --text-muted: #CCCCCC;
+}
+
+/* Apply Questrial font to all elements */
+body {
+  font-family: 'Questrial', sans-serif;
+  font-weight: 400;
+  background-color: var(--bg-primary);
+  color: var(--text-light);
+}
+
+/* Custom button styling */
+.btn-accent {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+}
+
+.btn-accent:hover {
+  background-color: #e63510;
+}
+
+/* Card styling */
+.card-secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-light);
+}
+
+/* Link styling */
+.link-accent {
+  color: var(--accent);
+}
+
+.link-accent:hover {
+  color: #e63510;
+}
+
+/* Icon containers */
+.icon-bg-accent {
+  background-color: var(--accent);
+}
