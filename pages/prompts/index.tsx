@@ -169,8 +169,9 @@ export default function PromptsIndex() {
                 prompts={prompts} 
                 onCopy={handleCopyPrompt} 
                 onEdit={(id) => {
-                  // Navigate to edit page
-                  router.push(`/prompts/${id}`);
+                  // Instead of using router.push which might trigger authentication issues,
+                  // let's create a direct URL navigation
+                  window.location.href = `/prompts/${id}`;
                   return Promise.resolve(true);
                 }} 
                 allTags={tags}

@@ -58,10 +58,10 @@ async function getPrompt(req: NextApiRequest, res: NextApiResponse, userId: stri
     }
     
     // Transform the data to include tags in a cleaner format
+    const { promptTags, ...promptData } = prompt;
     const transformedPrompt = {
-      ...prompt,
-      tags: prompt.promptTags.map(pt => pt.tag),
-      promptTags: undefined, // Remove the promptTags property
+      ...promptData,
+      tags: promptTags.map(pt => pt.tag)
     };
     
     return res.status(200).json({ success: true, data: transformedPrompt });
@@ -150,11 +150,11 @@ async function updatePrompt(req: NextApiRequest, res: NextApiResponse, userId: s
       },
     });
     
-    // Transform the data to include tags in a cleaner format
+    // Transform the data to include tags in a cleaner format  
+    const { promptTags, ...promptData } = updatedPrompt;
     const transformedPrompt = {
-      ...updatedPrompt,
-      tags: updatedPrompt.promptTags.map(pt => pt.tag),
-      promptTags: undefined, // Remove the promptTags property
+      ...promptData,
+      tags: promptTags.map(pt => pt.tag)
     };
     
     return res.status(200).json({ success: true, data: transformedPrompt });

@@ -6,22 +6,19 @@ import { Folder, Tag, PromptFormData } from '@/types';
 import dynamic from 'next/dynamic';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { mutate } from 'swr';
+import MarkdownEditor from '@/components/editor/MarkdownEditor';
+import TagManager from '@/components/tags/TagManager';
 
-// Import SimpleMDE dynamically with SSR disabled to prevent "navigator is not defined" error
-const SimpleMDE = dynamic(
-  () => import('react-simplemde-editor'),
-  { ssr: false }
-);
-
-// This handles the CSS import client-side to prevent SSR issues
-const ClientOnlyStyle = () => {
-  useEffect(() => {
-    // We need to use require here as a dynamic import since it's CSS
-    require('easymde/dist/easymde.min.css');
-  }, []);
-  
-  return null;
-};
+// This component is no longer needed since we switched to a different editor
+// const ClientOnlyStyle = () => {
+//   useEffect(() => {
+//     // We need to use require here as a dynamic import since it's CSS
+//     require('easymde/dist/easymde.min.css');
+//   }, []);
+//   
+//   return null;
+// };
 
 // More distinctive color palette for tags - must match TagManager
 const TAG_COLORS = [
@@ -70,6 +67,10 @@ export default function PromptForm({
   const [newFolderName, setNewFolderName] = useState('');
   const [isCreatingFolder, setIsCreatingFolder] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [showNewTagForm, setShowNewTagForm] = useState(false);
+  const [newTagName, setNewTagName] = useState('');
+  const [selectedColor, setSelectedColor] = useState<number | null>(null);
+  const [isCreatingTag, setIsCreatingTag] = useState(false);
 
   // Only render the editor on the client side
   useEffect(() => {
@@ -77,19 +78,48 @@ export default function PromptForm({
   }, []);
 
   // Markdown editor options
-  const mdeOptions = {
-    spellChecker: false,
-    toolbar: ["bold", "italic", "heading", "|", "code", "quote", "|", "unordered-list", "ordered-list", "|", "link", "preview"] as const,
-    status: false,
-    autofocus: false,
-  };
+  // const mdeOptions = {
+  //   spellChecker: false,
+  //   toolbar: ["bold", "italic", "heading", "|", "code", "quote", "|", "unordered-list", "ordered-list", "|", "link", "preview"] as const,
+  //   status: false,
+  //   autofocus: false,
+  //   autoDownloadFontAwesome: false,
+  //   forceSync: true,
+  //   previewRender: (plainText: string) => {
+  //     // Use a client-side only render to avoid server issues
+  //     if (typeof window === 'undefined') return '';
+  //     try {
+  //       return require('marked').parse(plainText, {
+  //         gfm: true,
+  //         breaks: true,
+  //         highlight: function(code: string, lang: string) {
+  //           if (lang && require('highlight.js').getLanguage(lang)) {
+  //             return require('highlight.js').highlight(code, { language: lang }).value;
+  //           }
+  //           return code;
+  //         }
+  //       });
+  //     } catch (e) {
+  //       console.error('Error rendering markdown preview:', e);
+  //       return plainText;
+  //     }
+  //   },
+  //   renderingConfig: {
+  //     singleLineBreaks: true,
+  //     codeSyntaxHighlighting: true,
+  //   },
+  //   indentWithTabs: false,
+  //   tabSize: 2,
+  //   maxHeight: '400px',
+  //   placeholder: "Enter your prompt here... Use markdown for formatting, e.g., ```code``` for code blocks",
+  // };
 
   useEffect(() => {
     if (initialData) {
       setTitle(initialData.title);
       setBody(initialData.body);
       setFolderId(initialData.folderId);
-      setSelectedTags(initialData.tagIds);
+      setSelectedTags(initialData.tagIds.filter(id => id !== null));
     } else {
       // Set default folder if available
       if (folders.length > 0) {
@@ -100,9 +130,12 @@ export default function PromptForm({
       setBody('');
       setSelectedTags([]);
     }
-    // Reset folder form state when modal opens/closes
+    // Reset form states
     setShowNewFolderForm(false);
     setNewFolderName('');
+    setShowNewTagForm(false);
+    setNewTagName('');
+    setSelectedColor(0); // Default to first color
   }, [initialData, folders, isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -126,23 +159,74 @@ export default function PromptForm({
     setIsSubmitting(true);
     setError('');
     
+    // Clean up tags - remove any null values
+    const cleanedTagIds = selectedTags.filter(id => id !== null);
+    
     try {
-      await onSubmit({ title, body, folderId, tagIds: selectedTags });
+      await onSubmit({
+        id: initialData?.id,
+        title: title.trim(),
+        body,
+        folderId,
+        tagIds: cleanedTagIds,
+      });
       onClose();
-    } catch (err) {
-      console.error('Error submitting prompt:', err);
-      setError('An error occurred. Please try again.');
-    } finally {
+    } catch (error) {
+      console.error('Error submitting prompt:', error);
+      setError('Failed to save prompt');
       setIsSubmitting(false);
     }
   };
 
   const handleTagToggle = (tagId: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tagId) 
-        ? prev.filter(id => id !== tagId) 
-        : [...prev, tagId]
-    );
+    if (selectedTags.includes(tagId)) {
+      setSelectedTags(selectedTags.filter(id => id !== tagId));
+    } else {
+      setSelectedTags([...selectedTags, tagId]);
+    }
+  };
+
+  const handleCreateTag = async () => {
+    if (!newTagName.trim()) {
+      toast.error('Tag name cannot be empty');
+      return;
+    }
+    
+    if (selectedColor === null) {
+      toast.error('Please select a color for the tag');
+      return;
+    }
+    
+    setIsCreatingTag(true);
+    
+    try {
+      const response = await axios.post('/api/tags', {
+        name: newTagName.trim(),
+        color: selectedColor
+      });
+      
+      // Add the new tag to the list and select it
+      const newTag = response.data;
+      if (newTag && newTag.id) {
+        setSelectedTags(prev => [...prev.filter(id => id !== null), newTag.id]);
+      }
+      
+      // Clear the input and reset form
+      setNewTagName('');
+      setSelectedColor(0);
+      setShowNewTagForm(false);
+      setIsCreatingTag(false);
+      
+      // Show success message
+      toast.success('Tag created successfully');
+      
+      // Refresh the tags data
+      mutate('/api/tags');
+    } catch (error) {
+      console.error('Error creating tag:', error);
+      toast.error('Failed to create tag');
+      setIsCreatingTag(false);
+    }
   };
 
   const handleCreateFolder = async () => {
@@ -213,32 +297,17 @@ export default function PromptForm({
               />
             </div>
             
-            <div>
-              <label htmlFor="body" className="block text-sm font-medium text-gray-300">
+            <div className="space-y-2">
+              <label htmlFor="body" className="block text-sm font-medium text-white">
                 Prompt Body
               </label>
               
-              {/* Add the CSS only on the client side */}
-              <ClientOnlyStyle />
-              
-              {isMounted ? (
-                <div className="markdown-editor-wrapper dark-theme mt-1">
-                  <SimpleMDE 
-                    value={body}
-                    onChange={setBody}
-                    options={mdeOptions}
-                    className="markdown-editor"
-                  />
-                </div>
-              ) : (
-                <textarea 
-                  id="body"
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
-                  className="mt-1 block w-full rounded-md border border-gray-600 py-2 px-3 shadow-sm bg-secondary text-white focus:border-accent focus:ring-accent sm:text-sm h-40"
-                  placeholder="Loading editor..."
-                />
-              )}
+              <MarkdownEditor 
+                value={body}
+                onChange={setBody}
+                placeholder="Enter your prompt here... Use markdown for formatting, e.g., ```code``` for code blocks"
+                id="promptBody"
+              />
             </div>
             
             <div>
@@ -331,40 +400,97 @@ export default function PromptForm({
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
-                Tags
-              </label>
-              <div className="flex flex-wrap gap-2 mt-1">
-                {tags.map((tag) => {
-                  // Get the tag color
-                  const colorIndex = tag.color !== undefined ? tag.color : 0;
-                  const tagColor = TAG_COLORS[colorIndex] || TAG_COLORS[0];
-                  
-                  return (
-                    <button
-                      key={tag.id}
-                      type="button"
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-sm ${
-                        selectedTags.includes(tag.id)
-                        ? 'ring-2 ring-white' : ''
-                      }`}
-                      style={{ 
-                        backgroundColor: tagColor.bg, 
-                        color: tagColor.text 
-                      }}
-                      onClick={() => handleTagToggle(tag.id)}
-                    >
-                      {tag.name}
-                    </button>
-                  );
-                })}
-                
-                {tags.length === 0 && (
-                  <p className="text-sm text-gray-400">
-                    No tags available. Create some tags first.
-                  </p>
-                )}
+              <div className="flex justify-between items-center">
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Tags
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setShowNewTagForm(true)}
+                  className="text-accent hover:text-white text-sm flex items-center"
+                >
+                  <PlusIcon className="h-3 w-3 mr-1" />
+                  New Tag
+                </button>
               </div>
+              
+              {showNewTagForm ? (
+                <div className="mt-1 space-y-2">
+                  <input
+                    type="text"
+                    value={newTagName}
+                    onChange={(e) => setNewTagName(e.target.value)}
+                    className="block w-full rounded-md border border-gray-600 py-2 px-3 shadow-sm bg-secondary text-white focus:border-accent focus:ring-accent sm:text-sm"
+                    placeholder="Enter tag name"
+                  />
+                  
+                  <div className="mb-2">
+                    <h3 className="text-white text-sm mb-2">Select color:</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {TAG_COLORS.map((color, index) => (
+                        <button
+                          key={index}
+                          type="button"
+                          onClick={() => setSelectedColor(index)}
+                          className={`w-6 h-6 rounded-full ${selectedColor === index ? 'ring-2 ring-white' : 'hover:ring-1 hover:ring-gray-300'}`}
+                          style={{ backgroundColor: color.bg }}
+                          aria-label={`Color option ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={handleCreateTag}
+                      disabled={isCreatingTag}
+                      className="flex-1 px-3 py-1 text-sm text-white bg-accent hover:bg-opacity-90 rounded-md"
+                    >
+                      {isCreatingTag ? 'Creating...' : 'Create'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowNewTagForm(false)}
+                      className="px-3 py-1 text-sm text-white bg-secondary hover:bg-opacity-90 rounded-md"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {tags.map((tag) => {
+                    // Get the tag color
+                    const colorIndex = tag.color !== undefined ? tag.color : 0;
+                    const tagColor = TAG_COLORS[colorIndex] || TAG_COLORS[0];
+                    
+                    return (
+                      <button
+                        key={tag.id}
+                        type="button"
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-sm ${
+                          selectedTags.includes(tag.id)
+                          ? 'ring-2 ring-white' : ''
+                        }`}
+                        style={{ 
+                          backgroundColor: tagColor.bg, 
+                          color: tagColor.text 
+                        }}
+                        onClick={() => handleTagToggle(tag.id)}
+                      >
+                        {tag.name}
+                      </button>
+                    );
+                  })}
+                  
+                  {tags.length === 0 && (
+                    <p className="text-sm text-gray-400">
+                      No tags available. Use the "New Tag" button to create some.
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
             
             <div className="flex justify-end gap-2 pt-4">

@@ -89,12 +89,13 @@ export type PromptQueryParams = {
 };
 
 // Form data for creating/updating prompts
-export type PromptFormData = {
+export interface PromptFormData {
+  id?: string; // Optional ID for updates
   title: string;
   body: string;
   folderId: string;
   tagIds: string[];
-};
+}
 
 // Form data for creating/updating folders
 export type FolderFormData = {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { ClipboardIcon, PencilIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { Prompt, Tag } from '@/types';
 import axios from 'axios';
@@ -22,12 +23,13 @@ const TAG_COLORS = [
 
 type PromptTableProps = {
   prompts: (Prompt & { tags: Tag[] })[];
-  onCopy: (id: string, body: string) => void;
-  onEdit: (id: string) => Promise<boolean>;
+  onCopy: (id: string, body: string) => Promise<void> | void;
+  onEdit: (id: string) => Promise<boolean> | void;
+  onDelete?: (id: string) => Promise<void> | void;
   allTags?: Tag[];
 };
 
-export default function PromptTable({ prompts, onCopy, onEdit, allTags = [] }: PromptTableProps) {
+export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags = [] }: PromptTableProps) {
   const router = useRouter();
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [activeTagPromptId, setActiveTagPromptId] = useState<string | null>(null);
@@ -159,7 +161,10 @@ export default function PromptTable({ prompts, onCopy, onEdit, allTags = [] }: P
             <tr 
               key={prompt.id} 
               className="hover:bg-primary cursor-pointer"
-              onClick={() => router.push(`/prompts/${prompt.id}`)}
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = `/prompts/${prompt.id}`;
+              }}
             >
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm font-medium text-white">{prompt.title}</div>
@@ -294,11 +299,12 @@ export default function PromptTable({ prompts, onCopy, onEdit, allTags = [] }: P
                   
                   <button
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
-                      onEdit(prompt.id);
+                      window.location.href = `/prompts/${prompt.id}`;
                     }}
                     className="text-accent hover:text-white transition-colors"
-                    aria-label="Edit prompt"
+                    aria-label="Edit prompt details"
                   >
                     <PencilIcon className="h-5 w-5" />
                   </button>
@@ -308,14 +314,6 @@ export default function PromptTable({ prompts, onCopy, onEdit, allTags = [] }: P
           ))}
         </tbody>
       </table>
-      
-      {/* Overlay to close tag dropdown when clicking outside */}
-      {activeTagPromptId && (
-        <div 
-          className="fixed inset-0 z-0" 
-          onClick={closeTagDropdown}
-        />
-      )}
     </div>
   );
 }
