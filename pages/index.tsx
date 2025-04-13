@@ -23,10 +23,13 @@ export default function Home() {
         <nav>
           <ul className="flex space-x-6">
             <li>
+              <a href="#how-it-works" className="hover:text-[#FA3811] transition-colors">How it works</a>
+            </li>
+            <li>
               <a href="#features" className="hover:text-[#FA3811] transition-colors">Features</a>
             </li>
             <li>
-              <a href="#how-it-works" className="hover:text-[#FA3811] transition-colors">How It Works</a>
+              <a href="#pricing" className="hover:text-[#FA3811] transition-colors">Pricing</a>
             </li>
             {!session ? (
               <>
@@ -62,58 +65,56 @@ export default function Home() {
       </header>
 
       <main>
-        {/* Hero Section */}
-        <section className="container mx-auto px-4 py-20 flex flex-col lg:flex-row items-center">
-          <div className="lg:w-1/2 lg:pr-12 mb-10 lg:mb-0">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Store and Organize Your <span className="text-[#FA3811]">Prompts</span> Effortlessly
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-8">
-              Prompt Saver helps you manage your AI prompts with folders, tags, and powerful search capabilities. Never lose a great prompt again.
-            </p>
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              {!session ? (
-                <button
-                  onClick={() => signIn(undefined, { callbackUrl: '/prompts' })}
-                  className="bg-[#FA3811] hover:bg-[#e53411] px-6 py-3 rounded-lg text-lg font-medium transition-colors"
-                >
-                  Get Started for Free
-                </button>
-              ) : (
-                <Link 
-                  href="/prompts" 
-                  className="bg-[#FA3811] hover:bg-[#e53411] px-6 py-3 rounded-lg text-lg font-medium transition-colors text-center"
-                >
-                  Go to Your Prompts
-                </Link>
-              )}
-              <a 
-                href="#features" 
-                className="border border-white hover:border-[#FA3811] hover:text-[#FA3811] px-6 py-3 rounded-lg text-lg font-medium transition-colors text-center"
-              >
-                Learn More
-              </a>
+        {/* Hero Section - Redesigned based on the provided template */}
+        <section className="container mx-auto px-4 py-16 bg-[#EBF1FB]/5 rounded-lg">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center bg-[#032824] px-3 py-1 rounded-full text-sm">
+              <span className="mr-2">✨</span> Instant Markdown Editing
             </div>
           </div>
-          <div className="lg:w-1/2">
-            <div className="bg-[#011B1F] p-6 rounded-2xl shadow-2xl">
-              <div className="border-b border-gray-700 pb-4 mb-4">
-                <h3 className="text-xl font-medium mb-2">AI Prompt Example</h3>
-                <p className="text-gray-400 text-sm">Saved 2 minutes ago</p>
+
+          <div className="text-center mb-10">
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
+              Track, Analyze, and Grow Your<br />Prompts with Ease
+            </h1>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Get real-time insights on your favorite prompts, organize with tags and folders,
+              all in one place
+            </p>
+          </div>
+
+          <div className="flex justify-center mb-12">
+            {!session ? (
+              <button
+                onClick={() => signIn(undefined, { callbackUrl: '/prompts' })}
+                className="bg-[#FA3811] hover:bg-[#e53411] px-6 py-3 rounded-lg text-lg font-medium transition-colors"
+              >
+                Start your free trial
+              </button>
+            ) : (
+              <Link 
+                href="/prompts" 
+                className="bg-[#FA3811] hover:bg-[#e53411] px-6 py-3 rounded-lg text-lg font-medium transition-colors text-center"
+              >
+                Go to Your Prompts
+              </Link>
+            )}
+          </div>
+
+          <div className="relative rounded-lg overflow-hidden shadow-2xl border border-[#153A42] max-w-6xl mx-auto">
+            <div className="bg-gradient-to-b from-[#032024] to-[#011B1F] p-4 rounded-t-lg border-b border-[#153A42]">
+              <div className="flex space-x-2">
+                <div className="h-3 w-3 rounded-full bg-[#FA3811]"></div>
+                <div className="h-3 w-3 rounded-full bg-[#FFC107]"></div>
+                <div className="h-3 w-3 rounded-full bg-[#4CAF50]"></div>
               </div>
-              <div className="bg-[#01171A] p-4 rounded-lg mb-4 font-mono text-sm">
-                <p>Create a detailed marketing strategy for a new eco-friendly product targeting millennials. Include social media approach, content calendar, and KPIs.</p>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex space-x-2">
-                  <span className="bg-teal-900 text-teal-200 px-2 py-1 rounded-full text-xs">marketing</span>
-                  <span className="bg-teal-900 text-teal-200 px-2 py-1 rounded-full text-xs">strategy</span>
-                </div>
-                <button className="text-teal-400 hover:text-teal-300 flex items-center">
-                  <ClipboardDocumentIcon className="h-5 w-5 mr-1" />
-                  <span>Copy</span>
-                </button>
-              </div>
+            </div>
+            <div className="bg-[#011B1F] p-1">
+              <img 
+                src="/images/prompt-app-screenshot.svg" 
+                alt="Prompt Saver Interface" 
+                className="w-full rounded"
+              />
             </div>
           </div>
         </section>

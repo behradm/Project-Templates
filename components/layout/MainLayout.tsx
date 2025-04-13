@@ -45,7 +45,7 @@ export default function MainLayout({ children, title = 'Prompt Saver' }: MainLay
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <Link href="/" className="flex items-center">
+                <Link href={session ? "/prompts" : "/"} className="flex items-center">
                   <BookmarkIcon className="h-8 w-8 text-accent" />
                   <span className="ml-2 text-xl font-bold">Prompt Saver</span>
                 </Link>
