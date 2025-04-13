@@ -630,3 +630,348 @@ a {
 .markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown a {
   color: #58a6ff;
 }
+
+/* Light mode improvements for sidebar and navigation */
+html.light-mode .sidebar {
+  border-right: 1px solid var(--color-border);
+  background-color: #F9FAFB;
+}
+
+html.light-mode .sidebar a,
+html.light-mode .sidebar button {
+  color: #4B5563;
+}
+
+html.light-mode .sidebar a:hover,
+html.light-mode .sidebar button:hover {
+  background-color: #F3F4F6;
+}
+
+html.light-mode .sidebar a.active {
+  background-color: #F3F4F6;
+  color: #EF4444;
+  font-weight: 600;
+}
+
+/* Improve collapse button visibility */
+html.light-mode .collapse-button {
+  color: #4B5563;
+  background-color: #F3F4F6;
+  border: 1px solid var(--color-border);
+}
+
+/* Improve form inputs in light mode */
+html.light-mode input[type="text"],
+html.light-mode input[type="email"],
+html.light-mode input[type="password"],
+html.light-mode select,
+html.light-mode textarea {
+  border: 1px solid #D1D5DB;
+  background-color: #FFFFFF;
+  color: #1F2937;
+}
+
+html.light-mode input[type="text"]:focus,
+html.light-mode input[type="email"]:focus,
+html.light-mode input[type="password"]:focus,
+html.light-mode select:focus,
+html.light-mode textarea:focus {
+  border-color: #6B7280;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Improve prompt detail view in light mode */
+html.light-mode .prompt-detail-container {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+html.light-mode .prompt-title {
+  color: #111827;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+html.light-mode .prompt-body {
+  color: #374151;
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+}
+
+/* Add more visible styling for dropdowns and selectors */
+html.light-mode select,
+html.light-mode .dropdown-container {
+  background-color: white;
+  border: 1px solid #D1D5DB;
+  color: #374151;
+}
+
+/* Improve back button visibility */
+html.light-mode .back-button {
+  color: #4B5563;
+}
+
+html.light-mode .back-button:hover {
+  color: #111827;
+}
+
+/* Improve the new prompt button and plus button visibility */
+html.light-mode .new-prompt-button,
+html.light-mode .sidebar-add-button {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+}
+
+html.light-mode .new-prompt-button:hover,
+html.light-mode .sidebar-add-button:hover {
+  background-color: #DC2626;
+}
+
+/* More specific improvements based on the red arrows in the screenshots */
+
+/* Improve sidebar toggle button specifically */
+html.light-mode .sidebar-toggle-button {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+html.light-mode .sidebar-toggle-button:hover {
+  background-color: #E5E7EB;
+  color: #1F2937;
+}
+
+/* Improve form header/close button */
+html.light-mode .form-header-close,
+html.light-mode .modal-close-button {
+  color: #6B7280;
+  background-color: #F9FAFB;
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+
+html.light-mode .form-header-close:hover,
+html.light-mode .modal-close-button:hover {
+  background-color: #F3F4F6;
+  color: #111827;
+}
+
+/* Improve input fields and form elements */
+html.light-mode input,
+html.light-mode textarea,
+html.light-mode select {
+  border: 1px solid #D1D5DB;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+html.light-mode input:hover,
+html.light-mode textarea:hover,
+html.light-mode select:hover {
+  border-color: #9CA3AF;
+}
+
+html.light-mode input:focus,
+html.light-mode textarea:focus,
+html.light-mode select:focus {
+  border-color: #6B7280;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  outline: none;
+}
+
+/* Style placeholder text */
+html.light-mode input::placeholder,
+html.light-mode textarea::placeholder {
+  color: #9CA3AF;
+}
+
+/* Improve prompt content visibility */
+html.light-mode .prompt-content {
+  color: #374151; 
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  padding: 1rem;
+  border-radius: 0.375rem;
+}
+
+/* Improve folder dropdown */
+html.light-mode .folder-select {
+  background-color: white;
+  border: 1px solid #D1D5DB;
+  color: #374151;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  width: 100%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+html.light-mode .folder-select:focus {
+  border-color: #6B7280;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Specific styling for form sections */
+html.light-mode .form-section {
+  border-bottom: 1px solid #E5E7EB;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+html.light-mode .form-section-title {
+  color: #111827;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Better styling for title input specifically */
+html.light-mode .title-input {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #111827;
+  padding: 0.625rem;
+}
+
+/* Improve action buttons */
+html.light-mode .action-button {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+html.light-mode .action-button:hover {
+  background-color: #E5E7EB;
+  color: #1F2937;
+}
+
+html.light-mode .action-button-primary {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+}
+
+html.light-mode .action-button-primary:hover {
+  background-color: #DC2626;
+}
+
+/* Target exact selectors for sidebar toggle and expand/collapse buttons */
+html.light-mode .group .collapse-button,
+html.light-mode #sidebar-toggle,
+html.light-mode button[aria-label="Toggle sidebar"] {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+html.light-mode .group .collapse-button:hover,
+html.light-mode #sidebar-toggle:hover,
+html.light-mode button[aria-label="Toggle sidebar"]:hover {
+  background-color: #E5E7EB;
+  color: #1F2937;
+}
+
+/* Target exact modal close buttons */
+html.light-mode button[aria-label="Close"],
+html.light-mode .close-button,
+html.light-mode .modal-close {
+  color: #6B7280;
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+
+html.light-mode button[aria-label="Close"]:hover,
+html.light-mode .close-button:hover,
+html.light-mode .modal-close:hover {
+  background-color: #F3F4F6;
+  color: #111827;
+}
+
+/* More specific styles for prompt content and title */
+html.light-mode .prompt-item,
+html.light-mode .prompt-detail {
+  color: #1F2937;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+html.light-mode .prompt-item:hover {
+  background-color: #F9FAFB;
+}
+
+html.light-mode .prompt-title h1,
+html.light-mode .prompt-name {
+  color: #111827;
+  font-weight: 600;
+}
+
+/* Target specific form elements in the prompt form */
+html.light-mode form input[type="text"],
+html.light-mode form input[type="email"],
+html.light-mode form input[type="password"],
+html.light-mode form select,
+html.light-mode form textarea,
+html.light-mode .title-input {
+  background-color: #FFFFFF;
+  color: #1F2937;
+  border: 1px solid #D1D5DB;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Style form section headers */
+html.light-mode form label,
+html.light-mode .form-label {
+  color: #4B5563;
+  font-weight: 500;
+}
+
+/* Style form action buttons */
+html.light-mode .cancel-button,
+html.light-mode button[type="button"]:not(.action-button-primary):not(.new-prompt-button) {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+}
+
+html.light-mode .submit-button,
+html.light-mode button[type="submit"],
+html.light-mode .save-button {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+}
+
+/* Fix the markdown editor specifically for light mode */
+html.light-mode .markdown-body,
+html.light-mode .markdown-content,
+html.light-mode .rc-md-editor {
+  color: #1F2937 !important;
+  background-color: #FFFFFF !important;
+}
+
+html.light-mode .rc-md-editor .editor-container .sec-md,
+html.light-mode .rc-md-editor .editor-container .input {
+  background-color: #FFFFFF !important;
+  color: #1F2937 !important;
+}
+
+/* Target the empty prompt content area specifically */
+html.light-mode .prompt-body:empty,
+html.light-mode .prompt-content:empty {
+  background-color: #F9FAFB;
+  border: 1px dashed #D1D5DB;
+  padding: 1rem;
+  color: #6B7280;
+  font-style: italic;
+}
+
+html.light-mode .prompt-body:empty::before,
+html.light-mode .prompt-content:empty::before {
+  content: "No content available";
+  color: #9CA3AF;
+}
