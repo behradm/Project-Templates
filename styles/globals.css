@@ -67,6 +67,54 @@ a {
   background-color: #e63510;
 }
 
+/* Custom animation for slide-in from right */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+/* Dark theme for markdown editor */
+.markdown-editor-wrapper.dark-theme .CodeMirror {
+  background-color: #1a202c;
+  color: #ffffff;
+  border-color: #4a5568;
+  border-radius: 0.375rem;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-toolbar {
+  background-color: #2d3748;
+  color: #ffffff;
+  border-color: #4a5568;
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-toolbar a {
+  color: #cbd5e0 !important;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-toolbar a:hover,
+.markdown-editor-wrapper.dark-theme .editor-toolbar a.active {
+  background-color: #4a5568;
+  color: #ffffff !important;
+}
+
+.markdown-editor-wrapper.dark-theme .CodeMirror-cursor {
+  border-left: 1px solid #ffffff;
+}
+
+.markdown-editor-wrapper.dark-theme .CodeMirror-selected {
+  background-color: rgba(66, 153, 225, 0.3);
+}
+
 /* Dark mode overrides - ensure our colors take precedence */
 .dark .bg-gray-800 {
   background-color: var(--bg-secondary) !important;

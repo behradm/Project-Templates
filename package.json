@@ -27,12 +27,14 @@
     "@radix-ui/react-use-controllable-state": "^1.0.0",
     "axios": "^1.8.4",
     "bcryptjs": "^2.4.3",
+    "marked": "^15.0.8",
     "next": "^14.0.4",
     "next-auth": "^4.24.11",
     "openai": "^4.93.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.5.2",
+    "react-simplemde-editor": "^5.2.0",
     "swr": "^2.3.3"
   },
   "devDependencies": {
