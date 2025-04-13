@@ -13,6 +13,44 @@ declare module "next-auth" {
     name?: string | null;
     image?: string | null;
   }
+  
+  interface Session {
+    user: {
+      id: string;
+      email?: string | null;
+      name?: string | null;
+      image?: string | null;
+    }
+  }
+}
+
+// Function to create a General folder for users
+// Using a type-safe approach to avoid Prisma client typings issues
+async function ensureGeneralFolder(userId: string) {
+  // Check if the user already has a General folder
+  const existingFolder = await prisma.$queryRaw`
+    SELECT * FROM "Folder" 
+    WHERE "userId" = ${userId} AND "name" = 'General' 
+    LIMIT 1
+  `;
+  
+  // If no folder exists, create one
+  if (!Array.isArray(existingFolder) || existingFolder.length === 0) {
+    await prisma.$executeRaw`
+      INSERT INTO "Folder" ("id", "name", "description", "userId", "createdAt", "updatedAt") 
+      VALUES (
+        gen_random_uuid(), 
+        'General', 
+        'Default folder for your prompts', 
+        ${userId},
+        NOW(),
+        NOW()
+      )
+    `;
+    return { id: 'new-folder', name: 'General' };
+  }
+  
+  return existingFolder[0];
 }
 
 export const authOptions: NextAuthOptions = {
@@ -72,9 +110,20 @@ export const authOptions: NextAuthOptions = {
       return session
     }
   },
+  events: {
+    async createUser({ user }) {
+      // Create a General folder for new users
+      await ensureGeneralFolder(user.id);
+    },
+    async signIn({ user }) {
+      // Ensure the user has a General folder
+      await ensureGeneralFolder(user.id);
+    },
+  },
   pages: {
-    signIn: '/',
-    error: '/',
+    signIn: '/auth/signin',
+    signOut: '/',
+    error: '/auth/signin',
   },
   secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV === 'development',

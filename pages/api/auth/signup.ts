@@ -4,14 +4,18 @@ import bcrypt from 'bcryptjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
+    return res.status(405).json({ error: 'Method not allowed', success: false });
   }
 
   try {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required' });
+      return res.status(400).json({ error: 'Email and password are required', success: false });
+    }
+
+    if (password.length < 8) {
+      return res.status(400).json({ error: 'Password must be at least 8 characters', success: false });
     }
 
     // Check if user already exists
@@ -20,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (existingUser) {
-      return res.status(409).json({ message: 'User already exists' });
+      return res.status(409).json({ error: 'Email already in use', success: false });
     }
 
     // Hash password
@@ -29,6 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Create new user
     const user = await prisma.user.create({
       data: {
+        name: name || null,
         email,
         password: hashedPassword,
       },
@@ -44,8 +49,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (error: any) {
     console.error('Signup error:', error);
     return res.status(500).json({ 
-      message: 'Something went wrong', 
-      error: error.message 
+      error: error.message || 'Something went wrong', 
+      success: false
     });
   }
 }

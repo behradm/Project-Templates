@@ -2,12 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Questrial font */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+/* Custom color variables */
+:root {
+  --bg-primary: #032024;
+  --bg-secondary: #011B1F;
+  --accent: #FA3811;
+  --text-light: #FFFFFF;
+  --text-muted: #CCCCCC;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Questrial', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-light);
 }
 
 a {
@@ -17,4 +30,72 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* Custom utility classes */
+.bg-primary {
+  background-color: var(--bg-primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary) !important;
+}
+
+.bg-accent {
+  background-color: var(--accent) !important;
+}
+
+.text-accent {
+  color: var(--accent) !important;
+}
+
+.border-accent {
+  border-color: var(--accent) !important;
+}
+
+.hover-accent:hover {
+  color: var(--accent) !important;
+}
+
+.btn-accent {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+}
+
+.btn-accent:hover {
+  background-color: #e63510;
+}
+
+/* Dark mode overrides - ensure our colors take precedence */
+.dark .bg-gray-800 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.dark .bg-gray-900 {
+  background-color: var(--bg-primary) !important;
+}
+
+.dark .bg-teal-600, 
+.dark .bg-teal-700, 
+.bg-teal-600, 
+.bg-teal-700 {
+  background-color: var(--accent) !important;
+}
+
+.dark .text-teal-500, 
+.dark .text-teal-600,
+.text-teal-500,
+.text-teal-600 {
+  color: var(--accent) !important;
+}
+
+.dark .hover\:bg-teal-700:hover,
+.hover\:bg-teal-700:hover {
+  background-color: #e63510 !important;
+}
+
+.dark .hover\:text-teal-400:hover,
+.hover\:text-teal-400:hover {
+  color: #e63510 !important;
 }

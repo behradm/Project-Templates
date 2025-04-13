@@ -1,81 +1,245 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { signIn, useSession } from 'next-auth/react';
+import { BookmarkIcon, TagIcon, FolderIcon, MagnifyingGlassIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 
-export default function LandingPage() {
-  const router = useRouter();
-  
+export default function Home() {
+  const { data: session } = useSession();
+
   return (
     <div className="min-h-screen bg-[#032024] text-white">
       <Head>
-        <title>Next.js Fullstack Template | Launch Your App Faster</title>
-        <meta name="description" content="A complete starter template for building modern web applications with Next.js" />
+        <title>Prompt Saver - Organize Your Prompts</title>
+        <meta name="description" content="Prompt Saver - A simple way to store, organize, and manage your prompts" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Navigation */}
-      <nav className="bg-[#011B1F] shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
-                <span className="text-xl text-white">Next.js Template</span>
-              </div>
-            </div>
-            <div className="flex items-center">
+      <header className="container mx-auto px-4 py-6 flex justify-between items-center">
+        <div className="flex items-center">
+          <BookmarkIcon className="h-8 w-8 text-[#FA3811]" />
+          <span className="ml-2 text-xl font-bold">Prompt Saver</span>
+        </div>
+        <nav>
+          <ul className="flex space-x-6">
+            <li>
+              <a href="#features" className="hover:text-[#FA3811] transition-colors">Features</a>
+            </li>
+            <li>
+              <a href="#how-it-works" className="hover:text-[#FA3811] transition-colors">How It Works</a>
+            </li>
+            {!session ? (
+              <>
+                <li>
+                  <button 
+                    onClick={() => signIn(undefined, { callbackUrl: '/prompts' })} 
+                    className="hover:text-[#FA3811] transition-colors font-medium"
+                  >
+                    Login
+                  </button>
+                </li>
+                <li>
+                  <Link 
+                    href="/auth/signup" 
+                    className="bg-[#FA3811] hover:bg-[#e53411] px-4 py-2 rounded-lg transition-colors"
+                  >
+                    Sign Up
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link 
+                  href="/prompts" 
+                  className="bg-[#FA3811] hover:bg-[#e53411] px-4 py-2 rounded-lg transition-colors"
+                >
+                  Go to App
+                </Link>
+              </li>
+            )}
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        {/* Hero Section */}
+        <section className="container mx-auto px-4 py-20 flex flex-col lg:flex-row items-center">
+          <div className="lg:w-1/2 lg:pr-12 mb-10 lg:mb-0">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              Store and Organize Your <span className="text-[#FA3811]">Prompts</span> Effortlessly
+            </h1>
+            <p className="text-lg md:text-xl text-gray-300 mb-8">
+              Prompt Saver helps you manage your AI prompts with folders, tags, and powerful search capabilities. Never lose a great prompt again.
+            </p>
+            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              {!session ? (
+                <button
+                  onClick={() => signIn(undefined, { callbackUrl: '/prompts' })}
+                  className="bg-[#FA3811] hover:bg-[#e53411] px-6 py-3 rounded-lg text-lg font-medium transition-colors"
+                >
+                  Get Started for Free
+                </button>
+              ) : (
+                <Link 
+                  href="/prompts" 
+                  className="bg-[#FA3811] hover:bg-[#e53411] px-6 py-3 rounded-lg text-lg font-medium transition-colors text-center"
+                >
+                  Go to Your Prompts
+                </Link>
+              )}
               <a 
-                href="https://github.com/behradm/Project-Templates" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white hover:text-[#FA3811] px-3 py-2 rounded-md text-sm"
+                href="#features" 
+                className="border border-white hover:border-[#FA3811] hover:text-[#FA3811] px-6 py-3 rounded-lg text-lg font-medium transition-colors text-center"
               >
-                GitHub
-              </a>
-              <a 
-                href="/api/auth/signin"
-                className="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-[#FA3811] hover:bg-[#e63510]"
-              >
-                Sign In
+                Learn More
               </a>
             </div>
           </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-            <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
-              <h1 className="text-4xl tracking-tight text-white sm:text-5xl md:text-6xl">
-                <span>Launch Your Next.js App </span>
-                <span className="text-[#FA3811]">In Days</span>
-              </h1>
-              <p className="mt-6 text-xl text-gray-300">
-                Stop wasting time configuring boilerplate code. Our pre-built fullstack template gives entrepreneurs and developers everything they need to start building instead of setting up.
-              </p>
-              <div className="mt-10">
-                <a
-                  href="https://github.com/behradm/Project-Templates"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base rounded-md shadow-sm text-white bg-[#FA3811] hover:bg-[#e63510]"
-                >
-                  Download from GitHub
-                </a>
+          <div className="lg:w-1/2">
+            <div className="bg-[#011B1F] p-6 rounded-2xl shadow-2xl">
+              <div className="border-b border-gray-700 pb-4 mb-4">
+                <h3 className="text-xl font-medium mb-2">AI Prompt Example</h3>
+                <p className="text-gray-400 text-sm">Saved 2 minutes ago</p>
+              </div>
+              <div className="bg-[#01171A] p-4 rounded-lg mb-4 font-mono text-sm">
+                <p>Create a detailed marketing strategy for a new eco-friendly product targeting millennials. Include social media approach, content calendar, and KPIs.</p>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex space-x-2">
+                  <span className="bg-teal-900 text-teal-200 px-2 py-1 rounded-full text-xs">marketing</span>
+                  <span className="bg-teal-900 text-teal-200 px-2 py-1 rounded-full text-xs">strategy</span>
+                </div>
+                <button className="text-teal-400 hover:text-teal-300 flex items-center">
+                  <ClipboardDocumentIcon className="h-5 w-5 mr-1" />
+                  <span>Copy</span>
+                </button>
               </div>
             </div>
-            <div className="mt-12 lg:mt-0 lg:col-span-6">
-              <div className="bg-[#011B1F] sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden shadow-xl">
-                <div className="px-4 py-8 sm:px-10">
-                  <div className="border-2 border-dashed border-gray-600 rounded-md p-6 flex items-center justify-center">
-                    <div className="space-y-6 text-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-12 w-12 text-[#FA3811]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                      </svg>
-                      <p className="text-sm text-gray-300">
-                        Modern Next.js template with authentication, database, and styling pre-configured
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section id="features" className="bg-[#011B1F] py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
+              Features Designed for <span className="text-[#FA3811]">Prompt Engineers</span>
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-[#032024] p-6 rounded-xl">
+                <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-block mb-4">
+                  <FolderIcon className="h-8 w-8 text-[#FA3811]" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">Folder Organization</h3>
+                <p className="text-gray-300">
+                  Keep your prompts organized with custom folders for different projects, clients, or use cases.
+                </p>
+              </div>
+              <div className="bg-[#032024] p-6 rounded-xl">
+                <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-block mb-4">
+                  <TagIcon className="h-8 w-8 text-[#FA3811]" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">Tagging System</h3>
+                <p className="text-gray-300">
+                  Add tags to your prompts for easy filtering and create a flexible organizational structure.
+                </p>
+              </div>
+              <div className="bg-[#032024] p-6 rounded-xl">
+                <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-block mb-4">
+                  <MagnifyingGlassIcon className="h-8 w-8 text-[#FA3811]" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">Powerful Search</h3>
+                <p className="text-gray-300">
+                  Quickly find the exact prompt you need with our PostgreSQL full-text search capability.
+                </p>
+              </div>
+              <div className="bg-[#032024] p-6 rounded-xl">
+                <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-block mb-4">
+                  <ClipboardDocumentIcon className="h-8 w-8 text-[#FA3811]" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">One-Click Copy</h3>
+                <p className="text-gray-300">
+                  Copy any prompt to your clipboard with a single click, complete with visual feedback.
+                </p>
+              </div>
+              <div className="bg-[#032024] p-6 rounded-xl">
+                <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-block mb-4">
+                  <svg className="h-8 w-8 text-[#FA3811]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-3">Private & Secure</h3>
+                <p className="text-gray-300">
+                  Your prompts are private to your account. No one else can access your valuable prompt library.
+                </p>
+              </div>
+              <div className="bg-[#032024] p-6 rounded-xl">
+                <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-block mb-4">
+                  <svg className="h-8 w-8 text-[#FA3811]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-3">Responsive Design</h3>
+                <p className="text-gray-300">
+                  Access your prompts from any device with our mobile-friendly, responsive interface.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section id="how-it-works" className="py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
+              How <span className="text-[#FA3811]">Prompt Saver</span> Works
+            </h2>
+            <div className="max-w-3xl mx-auto">
+              <div className="relative">
+                <div className="absolute left-5 top-0 h-full w-1 bg-[#011B1F]"></div>
+                
+                <div className="relative z-10 mb-12">
+                  <div className="flex items-start">
+                    <div className="bg-[#FA3811] rounded-full h-10 w-10 flex items-center justify-center font-bold">1</div>
+                    <div className="ml-6">
+                      <h3 className="text-xl font-bold mb-2">Create an Account</h3>
+                      <p className="text-gray-300">
+                        Sign up with your email or GitHub account to get started with Prompt Saver.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="relative z-10 mb-12">
+                  <div className="flex items-start">
+                    <div className="bg-[#FA3811] rounded-full h-10 w-10 flex items-center justify-center font-bold">2</div>
+                    <div className="ml-6">
+                      <h3 className="text-xl font-bold mb-2">Organize Your Workspace</h3>
+                      <p className="text-gray-300">
+                        Create folders and tags to organize your prompts based on your workflow and preferences.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="relative z-10 mb-12">
+                  <div className="flex items-start">
+                    <div className="bg-[#FA3811] rounded-full h-10 w-10 flex items-center justify-center font-bold">3</div>
+                    <div className="ml-6">
+                      <h3 className="text-xl font-bold mb-2">Add Your Prompts</h3>
+                      <p className="text-gray-300">
+                        Save your favorite and most effective prompts with titles, tags, and organize them into folders.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-start">
+                    <div className="bg-[#FA3811] rounded-full h-10 w-10 flex items-center justify-center font-bold">4</div>
+                    <div className="ml-6">
+                      <h3 className="text-xl font-bold mb-2">Use Anytime, Anywhere</h3>
+                      <p className="text-gray-300">
+                        Quickly find and copy the prompts you need whenever you're working with AI tools.
                       </p>
                     </div>
                   </div>
@@ -83,274 +247,46 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Tech Stack Section */}
-      <section className="py-12 bg-[#032024]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:text-center">
-            <h2 className="text-base text-[#FA3811] tracking-wide uppercase">Complete Solution</h2>
-            <p className="mt-2 text-3xl leading-8 tracking-tight text-white sm:text-4xl">
-              What's Included
+        {/* CTA Section */}
+        <section className="bg-[#011B1F] py-20">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Organize Your <span className="text-[#FA3811]">Prompt Library</span>?
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+              Join Prompt Saver today and take control of your AI prompts. Your future self will thank you.
             </p>
-            <p className="mt-4 max-w-2xl text-xl text-gray-300 lg:mx-auto">
-              Everything you need to build modern, full-stack web applications
-            </p>
+            {!session ? (
+              <button
+                onClick={() => signIn(undefined, { callbackUrl: '/prompts' })}
+                className="bg-[#FA3811] hover:bg-[#e53411] px-8 py-3 rounded-lg text-lg font-medium transition-colors"
+              >
+                Get Started Now
+              </button>
+            ) : (
+              <Link 
+                href="/prompts" 
+                className="bg-[#FA3811] hover:bg-[#e53411] px-8 py-3 rounded-lg text-lg font-medium transition-colors inline-block"
+              >
+                Go to Your Dashboard
+              </Link>
+            )}
           </div>
+        </section>
+      </main>
 
-          <div className="mt-10">
-            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="pt-6">
-                <div className="flow-root bg-[#011B1F] rounded-lg px-6 pb-8 shadow-md">
-                  <div className="-mt-6">
-                    <div className="inline-flex items-center justify-center p-3 bg-[#FA3811] rounded-md shadow-lg">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                    </div>
-                    <h3 className="mt-6 text-lg text-white">
-                      Next.js Framework
-                    </h3>
-                    <p className="mt-3 text-base text-gray-400">
-                      React framework for production with server-side rendering, file-based routing, and API routes.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6">
-                <div className="flow-root bg-[#011B1F] rounded-lg px-6 pb-8 shadow-md">
-                  <div className="-mt-6">
-                    <div className="inline-flex items-center justify-center p-3 bg-[#FA3811] rounded-md shadow-lg">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-                      </svg>
-                    </div>
-                    <h3 className="mt-6 text-lg text-white">
-                      NeonDB & Prisma
-                    </h3>
-                    <p className="mt-3 text-base text-gray-400">
-                      Serverless PostgreSQL with modern ORM for type-safe database access.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6">
-                <div className="flow-root bg-[#011B1F] rounded-lg px-6 pb-8 shadow-md">
-                  <div className="-mt-6">
-                    <div className="inline-flex items-center justify-center p-3 bg-[#FA3811] rounded-md shadow-lg">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                      </svg>
-                    </div>
-                    <h3 className="mt-6 text-lg text-white">
-                      Authentication
-                    </h3>
-                    <p className="mt-3 text-base text-gray-400">
-                      NextAuth.js with GitHub OAuth and email/password authentication.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6">
-                <div className="flow-root bg-[#011B1F] rounded-lg px-6 pb-8 shadow-md">
-                  <div className="-mt-6">
-                    <div className="inline-flex items-center justify-center p-3 bg-[#FA3811] rounded-md shadow-lg">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                      </svg>
-                    </div>
-                    <h3 className="mt-6 text-lg text-white">
-                      Tailwind CSS & Radix UI
-                    </h3>
-                    <p className="mt-3 text-base text-gray-400">
-                      Utility-first CSS framework combined with accessible UI components.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6">
-                <div className="flow-root bg-[#011B1F] rounded-lg px-6 pb-8 shadow-md">
-                  <div className="-mt-6">
-                    <div className="inline-flex items-center justify-center p-3 bg-[#FA3811] rounded-md shadow-lg">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                      </svg>
-                    </div>
-                    <h3 className="mt-6 text-lg text-white">
-                      AI Integration
-                    </h3>
-                    <p className="mt-3 text-base text-gray-400">
-                      Ready-to-use OpenAI API integration for building AI-powered features.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6">
-                <div className="flow-root bg-[#011B1F] rounded-lg px-6 pb-8 shadow-md">
-                  <div className="-mt-6">
-                    <div className="inline-flex items-center justify-center p-3 bg-[#FA3811] rounded-md shadow-lg">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <h3 className="mt-6 text-lg text-white">
-                      TypeScript
-                    </h3>
-                    <p className="mt-3 text-base text-gray-400">
-                      Static type checking for improved developer experience and code quality.
-                    </p>
-                  </div>
-                </div>
-              </div>
+      <footer className="bg-[#032024] border-t border-[#011B1F] py-10">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center mb-4 md:mb-0">
+              <BookmarkIcon className="h-8 w-8 text-[#FA3811]" />
+              <span className="ml-2 text-xl font-bold">Prompt Saver</span>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Getting Started Section */}
-      <section className="py-16 bg-[#032024]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-base text-[#FA3811] tracking-wide uppercase">Easy Setup</h2>
-            <p className="mt-2 text-3xl leading-8 tracking-tight text-white sm:text-4xl">
-              How to Get Started
-            </p>
-            <p className="mt-4 max-w-2xl text-xl text-gray-300 mx-auto">
-              Get your project up and running in three simple steps
-            </p>
-          </div>
-
-          <div className="mt-12">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              <div className="bg-[#011B1F] rounded-lg shadow-md p-6">
-                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-[#FA3811] text-white">
-                  <span className="text-lg">1</span>
-                </div>
-                <h3 className="mt-4 text-lg text-white">Download the repo from GitHub</h3>
-                <p className="mt-2 text-base text-gray-400">
-                  Clone the repository to your local machine using Git or download it directly from GitHub.
-                </p>
-                <div className="mt-4">
-                  <pre className="bg-[#032024] text-green-400 p-3 rounded text-sm overflow-x-auto">
-                    git clone https://github.com/behradm/Project-Templates.git
-                  </pre>
-                </div>
-              </div>
-
-              <div className="bg-[#011B1F] rounded-lg shadow-md p-6">
-                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-[#FA3811] text-white">
-                  <span className="text-lg">2</span>
-                </div>
-                <h3 className="mt-4 text-lg text-white">Run it on your IDE or cloud environment</h3>
-                <p className="mt-2 text-base text-gray-400">
-                  Open the project in your favorite IDE like Cursor or deploy it to a cloud development environment with Windsurf.
-                </p>
-                <div className="mt-4 space-y-2">
-                  <p className="text-sm text-gray-300">Install dependencies and start the development server:</p>
-                  <pre className="bg-[#032024] text-green-400 p-3 rounded text-sm overflow-x-auto">
-                    npm install
-                    npm run dev
-                  </pre>
-                </div>
-              </div>
-
-              <div className="bg-[#011B1F] rounded-lg shadow-md p-6">
-                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-[#FA3811] text-white">
-                  <span className="text-lg">3</span>
-                </div>
-                <h3 className="mt-4 text-lg text-white">Read the README.md file for instructions</h3>
-                <p className="mt-2 text-base text-gray-400">
-                  Follow the comprehensive setup guide in the README to configure your environment variables and deploy your app.
-                </p>
-                <ul className="mt-4 space-y-2 text-sm text-gray-300 list-disc list-inside">
-                  <li>Configure your database connection</li>
-                  <li>Set up authentication providers</li>
-                  <li>Customize as needed for your project</li>
-                  <li>Deploy to your preferred hosting platform</li>
-                </ul>
-              </div>
+            <div className="text-gray-400 text-sm">
+              &copy; {new Date().getFullYear()} Prompt Saver. All rights reserved.
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-[#011B1F]">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-          <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-            <div className="space-y-4 xl:col-span-1">
-              <h3 className="text-2xl text-white">Next.js Templates</h3>
-              <p className="text-gray-300 text-base">
-                A product of Bonanza Studio
-              </p>
-              <p className="text-gray-400 text-sm mt-4">
-                Rooted in Berlin's vibrant startup ecosystem, we provide CIOs and CDOs immediate access to a fully integrated team of researchers, UX designers, product strategists, and AI technologists. We rapidly design and deliver novel, AI-powered product experiences that redefine industries and outpace competitors.
-              </p>
-              <div className="mt-4">
-                <a
-                  href="https://www.bonanza-studios.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#FA3811] hover:text-[#e63510]"
-                >
-                  Visit Bonanza Studios
-                </a>
-              </div>
-            </div>
-            <div className="mt-12 xl:mt-0 xl:col-span-2">
-              <div className="grid grid-cols-2 gap-8 md:grid-cols-3">
-                <div>
-                  <h3 className="text-sm text-gray-400 tracking-wider uppercase">
-                    Resources
-                  </h3>
-                  <ul className="mt-4 space-y-4">
-                    <li>
-                      <a href="https://nextjs.org/docs" className="text-base text-gray-300 hover:text-[#FA3811]">
-                        Next.js Docs
-                      </a>
-                    </li>
-                    <li>
-                      <a href="https://tailwindcss.com/docs" className="text-base text-gray-300 hover:text-[#FA3811]">
-                        Tailwind CSS
-                      </a>
-                    </li>
-                    <li>
-                      <a href="https://www.prisma.io/docs" className="text-base text-gray-300 hover:text-[#FA3811]">
-                        Prisma Documentation
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-sm text-gray-400 tracking-wider uppercase">
-                    Support
-                  </h3>
-                  <ul className="mt-4 space-y-4">
-                    <li>
-                      <a href="https://github.com/behradm/Project-Templates/issues" className="text-base text-gray-300 hover:text-[#FA3811]">
-                        GitHub Issues
-                      </a>
-                    </li>
-                    <li>
-                      <a href="https://github.com/behradm/Project-Templates" className="text-base text-gray-300 hover:text-[#FA3811]">
-                        Star on GitHub
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="mt-12 border-t border-gray-700 pt-8">
-            <p className="text-base text-gray-400 xl:text-center">
-              &copy; {new Date().getFullYear()} Bonanza Studios. All rights reserved.
-            </p>
           </div>
         </div>
       </footer>
