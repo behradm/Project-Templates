@@ -18,6 +18,11 @@
   --color-button-bg: #1E293B;
   --color-error: #EF4444;
   --color-success: #10B981;
+  
+  /* Table-specific styles for dark mode */
+  --color-table-header-bg: #011B1F;
+  --color-table-row-hover: #02272D;
+  --color-table-border: #334155;
 }
 
 html.light-mode {
@@ -32,6 +37,11 @@ html.light-mode {
   --color-button-bg: #E2E8F0;
   --color-error: #EF4444;
   --color-success: #10B981;
+  
+  /* Table-specific styles for light mode */
+  --color-table-header-bg: #F1F5F9;
+  --color-table-row-hover: #F8FAFC;
+  --color-table-border: #E2E8F0;
 }
 
 /* Using CSS variables for themed components */
@@ -57,6 +67,98 @@ html.light-mode {
 
 .bg-input {
   background-color: var(--color-input-bg);
+}
+
+/* Override for MD editor in light mode */
+html.light-mode .rc-md-editor {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+html.light-mode .rc-md-navigation {
+  background-color: var(--color-input-bg);
+  border-color: var(--color-border);
+}
+
+html.light-mode .editor-container {
+  background-color: var(--color-input-bg);
+  color: var(--color-text);
+}
+
+/* Custom utility classes using theme variables */
+.bg-table-header-bg {
+  background-color: var(--color-table-header-bg);
+}
+
+.bg-table-row-hover:hover {
+  background-color: var(--color-table-row-hover);
+}
+
+.divide-table-border > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--color-table-border);
+}
+
+/* Specific styles for the markdown editor in light mode */
+html.light-mode .rc-md-editor {
+  border-color: var(--color-border);
+  background-color: var(--color-secondary);
+}
+
+html.light-mode .rc-md-editor .rc-md-navigation {
+  background-color: var(--color-table-header-bg);
+  border-color: var(--color-border);
+}
+
+html.light-mode .rc-md-editor .editor-container {
+  color: var(--color-text);
+}
+
+html.light-mode .rc-md-editor .editor-container textarea {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+html.light-mode .rc-md-editor .editor-container .sec-md .input {
+  color: var(--color-text);
+  background-color: var(--color-secondary);
+}
+
+html.light-mode pre {
+  background-color: var(--color-input-bg) !important;
+  color: var(--color-text) !important;
+}
+
+html.light-mode code {
+  background-color: var(--color-input-bg) !important;
+  color: var(--color-text) !important;
+}
+
+/* Fix for code blocks in light mode */
+html.light-mode .hljs-keyword,
+html.light-mode .hljs-selector-tag,
+html.light-mode .hljs-addition {
+  color: #8959a8;
+}
+
+html.light-mode .hljs-string,
+html.light-mode .hljs-meta .hljs-string {
+  color: #718c00;
+}
+
+html.light-mode .hljs-title,
+html.light-mode .hljs-type {
+  color: #4271ae;
+}
+
+html.light-mode .hljs-comment {
+  color: #8e908c;
+}
+
+html.light-mode .hljs-variable,
+html.light-mode .hljs-attribute,
+html.light-mode .hljs-template-variable {
+  color: #c82829;
 }
 
 /* Override for MD editor in light mode */

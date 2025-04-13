@@ -142,33 +142,33 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-700">
-        <thead className="bg-secondary">
+      <table className="min-w-full divide-y divide-table-border">
+        <thead className="bg-table-header-bg">
           <tr>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
               Title
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
               Tags
             </th>
-            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-secondary uppercase tracking-wider">
               Actions
             </th>
           </tr>
         </thead>
-        <tbody className="bg-secondary divide-y divide-gray-700">
+        <tbody className="bg-secondary divide-y divide-table-border">
           {localPrompts.map((prompt) => (
             <tr 
               key={prompt.id} 
-              className="hover:bg-primary cursor-pointer"
+              className="hover:bg-table-row-hover cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
                 window.location.href = `/prompts/${prompt.id}`;
               }}
             >
               <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm font-medium text-white">{prompt.title}</div>
-                <div className="text-sm text-gray-400 truncate max-w-xs">
+                <div className="text-sm font-medium text-primary">{prompt.title}</div>
+                <div className="text-sm text-secondary truncate max-w-xs">
                   {prompt.body.substring(0, 60)}{prompt.body.length > 60 ? '...' : ''}
                 </div>
               </td>
