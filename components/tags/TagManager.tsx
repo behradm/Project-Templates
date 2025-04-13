@@ -24,9 +24,10 @@ type TagManagerProps = {
   existingTags: Tag[];
   onSelect?: (tagId: string) => void;
   selectedTags?: string[];
+  triggerElement?: React.ReactNode;
 };
 
-export default function TagManager({ existingTags, onSelect, selectedTags = [] }: TagManagerProps) {
+export default function TagManager({ existingTags, onSelect, selectedTags = [], triggerElement }: TagManagerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [newTagName, setNewTagName] = useState('');
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
@@ -102,12 +103,7 @@ export default function TagManager({ existingTags, onSelect, selectedTags = [] }
         }
       }}>
         <Dialog.Trigger asChild>
-          <button 
-            id="tag-manager-button" 
-            className="px-4 py-2 text-sm font-medium text-white bg-secondary hover:bg-opacity-90 rounded-md"
-          >
-            Tags
-          </button>
+          {triggerElement}
         </Dialog.Trigger>
         
         <Dialog.Portal>
