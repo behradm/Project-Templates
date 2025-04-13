@@ -58,22 +58,6 @@ export default function MainLayout({ children, title = 'Prompt Saver' }: MainLay
                     <UserCircleIcon className="h-5 w-5 mr-1" />
                     <span>Account</span>
                   </Link>
-                  <div className="flex items-center">
-                    {session.user.image ? (
-                      <img 
-                        src={session.user.image} 
-                        alt={session.user.email || 'User'} 
-                        className="h-8 w-8 rounded-full"
-                      />
-                    ) : (
-                      <div className="h-8 w-8 rounded-full bg-accent flex items-center justify-center text-white">
-                        {session.user.email ? session.user.email[0].toUpperCase() : 'U'}
-                      </div>
-                    )}
-                    <span className="ml-2 text-primary">
-                      {session.user.email}
-                    </span>
-                  </div>
                   <Link href="/api/auth/signout" className="text-primary hover:text-red-500">
                     Sign Out
                   </Link>
