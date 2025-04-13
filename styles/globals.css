@@ -7,11 +7,73 @@
 
 /* Custom color variables */
 :root {
-  --bg-primary: #032024;
-  --bg-secondary: #011B1F;
-  --accent: #FA3811;
-  --text-light: #FFFFFF;
-  --text-muted: #CCCCCC;
+  /* Dark theme colors (default) */
+  --color-primary: #032024;
+  --color-secondary: #011B1F;
+  --color-accent: #FA3811;
+  --color-text: #FFFFFF;
+  --color-text-secondary: #94A3B8;
+  --color-border: #334155;
+  --color-input-bg: #1E293B;
+  --color-button-bg: #1E293B;
+  --color-error: #EF4444;
+  --color-success: #10B981;
+}
+
+html.light-mode {
+  /* Light theme colors */
+  --color-primary: #F8FAFC;
+  --color-secondary: #FFFFFF;
+  --color-accent: #FA3811;
+  --color-text: #0F172A;
+  --color-text-secondary: #64748B;
+  --color-border: #E2E8F0;
+  --color-input-bg: #F1F5F9;
+  --color-button-bg: #E2E8F0;
+  --color-error: #EF4444;
+  --color-success: #10B981;
+}
+
+/* Using CSS variables for themed components */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.text-primary {
+  color: var(--color-text);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.border-themed {
+  border-color: var(--color-border);
+}
+
+.bg-input {
+  background-color: var(--color-input-bg);
+}
+
+/* Override for MD editor in light mode */
+html.light-mode .rc-md-editor {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+html.light-mode .rc-md-navigation {
+  background-color: var(--color-input-bg);
+  border-color: var(--color-border);
+}
+
+html.light-mode .editor-container {
+  background-color: var(--color-input-bg);
+  color: var(--color-text);
 }
 
 html,
@@ -19,8 +81,8 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Questrial', sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-light);
+  background-color: var(--color-primary);
+  color: var(--color-text);
 }
 
 a {
@@ -33,32 +95,24 @@ a {
 }
 
 /* Custom utility classes */
-.bg-primary {
-  background-color: var(--bg-primary) !important;
-}
-
-.bg-secondary {
-  background-color: var(--bg-secondary) !important;
-}
-
 .bg-accent {
-  background-color: var(--accent) !important;
+  background-color: var(--color-accent) !important;
 }
 
 .text-accent {
-  color: var(--accent) !important;
+  color: var(--color-accent) !important;
 }
 
 .border-accent {
-  border-color: var(--accent) !important;
+  border-color: var(--color-accent) !important;
 }
 
 .hover-accent:hover {
-  color: var(--accent) !important;
+  color: var(--color-accent) !important;
 }
 
 .btn-accent {
-  background-color: var(--accent);
+  background-color: var(--color-accent);
   color: white;
   border: none;
 }
@@ -163,25 +217,25 @@ a {
 
 /* Dark mode overrides - ensure our colors take precedence */
 .dark .bg-gray-800 {
-  background-color: var(--bg-secondary) !important;
+  background-color: var(--color-secondary) !important;
 }
 
 .dark .bg-gray-900 {
-  background-color: var(--bg-primary) !important;
+  background-color: var(--color-primary) !important;
 }
 
 .dark .bg-teal-600, 
 .dark .bg-teal-700, 
 .bg-teal-600, 
 .bg-teal-700 {
-  background-color: var(--accent) !important;
+  background-color: var(--color-accent) !important;
 }
 
 .dark .text-teal-500, 
 .dark .text-teal-600,
 .text-teal-500,
 .text-teal-600 {
-  color: var(--accent) !important;
+  color: var(--color-accent) !important;
 }
 
 .dark .hover\:bg-teal-700:hover,

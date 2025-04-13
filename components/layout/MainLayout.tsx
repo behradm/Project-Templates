@@ -3,7 +3,8 @@ import Head from 'next/head';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { BookmarkIcon } from '@heroicons/react/24/outline';
+import { BookmarkIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { useTheme } from '@/contexts/ThemeContext';
 
 type MainLayoutProps = {
   children: ReactNode;
@@ -14,6 +15,7 @@ export default function MainLayout({ children, title = 'Prompt Saver' }: MainLay
   const { data: session, status } = useSession();
   const router = useRouter();
   const isLoading = status === 'loading';
+  const { theme } = useTheme();
   
   // Redirect to login if not authenticated
   React.useEffect(() => {
@@ -31,7 +33,7 @@ export default function MainLayout({ children, title = 'Prompt Saver' }: MainLay
   }
 
   return (
-    <div className="min-h-screen bg-primary text-white">
+    <div className="min-h-screen bg-primary text-primary">
       <Head>
         <title>{title}</title>
         <meta name="description" content="Organize and save your prompts with Prompt Saver" />
@@ -52,26 +54,27 @@ export default function MainLayout({ children, title = 'Prompt Saver' }: MainLay
             <div className="flex items-center">
               {session && (
                 <div className="flex items-center space-x-4">
-                  <Link href="/account" className="text-white hover:text-accent">
-                    Account
+                  <Link href="/account" className="flex items-center text-primary hover:text-accent">
+                    <UserCircleIcon className="h-5 w-5 mr-1" />
+                    <span>Account</span>
                   </Link>
                   <div className="flex items-center">
                     {session.user.image ? (
                       <img 
                         src={session.user.image} 
-                        alt={session.user.name || 'User'} 
+                        alt={session.user.email || 'User'} 
                         className="h-8 w-8 rounded-full"
                       />
                     ) : (
                       <div className="h-8 w-8 rounded-full bg-accent flex items-center justify-center text-white">
-                        {session.user.name ? session.user.name[0].toUpperCase() : 'U'}
+                        {session.user.email ? session.user.email[0].toUpperCase() : 'U'}
                       </div>
                     )}
-                    <span className="ml-2 text-white">
-                      {session.user.name || session.user.email}
+                    <span className="ml-2 text-primary">
+                      {session.user.email}
                     </span>
                   </div>
-                  <Link href="/api/auth/signout" className="text-white hover:text-red-500">
+                  <Link href="/api/auth/signout" className="text-primary hover:text-red-500">
                     Sign Out
                   </Link>
                 </div>
@@ -87,7 +90,7 @@ export default function MainLayout({ children, title = 'Prompt Saver' }: MainLay
 
       <footer className="bg-secondary shadow mt-auto py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-gray-400">
+          <p className="text-center text-secondary">
             &copy; {new Date().getFullYear()} Prompt Saver. All rights reserved.
           </p>
         </div>
