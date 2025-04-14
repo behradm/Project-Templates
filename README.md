@@ -7,7 +7,7 @@ A complete starter template for building modern web applications with Next.js.
 - **Framework**: [Next.js](https://nextjs.org/) (React framework for frontend and backend)
 - **Database**: [NeonDB](https://neon.tech/) (Serverless PostgreSQL) with [Prisma](https://www.prisma.io/) ORM
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [Radix UI](https://www.radix-ui.com/) components
-- **Authentication**: [NextAuth.js](https://next-auth.js.org/) with GitHub OAuth and email/password
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/) with GitHub OAuth, Google OAuth, and email/password
 - **AI Integration**: [OpenAI API](https://platform.openai.com/)
 
 ## Getting Started
@@ -18,6 +18,7 @@ A complete starter template for building modern web applications with Next.js.
 - [npm](https://www.npmjs.com/) (v8 or newer)
 - A NeonDB account for PostgreSQL database
 - GitHub OAuth credentials (optional)
+- Google OAuth credentials (optional)
 - OpenAI API key (optional)
 
 ### Setup
@@ -37,6 +38,7 @@ A complete starter template for building modern web applications with Next.js.
    ```bash
    cp .env.example .env
    ```
+   Then edit the `.env` file and replace the placeholder values with your actual credentials.
 
 4. Set up your database:
    - Create a new PostgreSQL database in NeonDB
@@ -61,7 +63,7 @@ A complete starter template for building modern web applications with Next.js.
 
 ## Features
 
-- **Authentication**: Sign in with GitHub or email/password
+- **Authentication**: Sign in with GitHub, Google, or email/password
 - **Database**: PostgreSQL with Prisma ORM
 - **UI Components**: Styled with Tailwind CSS and Radix UI
 - **API Routes**: Next.js API routes for backend functionality
@@ -83,9 +85,38 @@ NEXTAUTH_URL="http://localhost:3000"
 GITHUB_ID="your-github-client-id"
 GITHUB_SECRET="your-github-client-secret"
 
+# Google OAuth
+GOOGLE_ID="your-google-client-id"
+GOOGLE_SECRET="your-google-client-secret"
+
 # OpenAI API
 OPENAI_API_KEY="your-openai-api-key"
 ```
+
+### Setting up OAuth Providers
+
+#### GitHub OAuth
+1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
+2. Click on "New OAuth App"
+3. Fill in the application details:
+   - Application name: Your app name
+   - Homepage URL: `http://localhost:3000` (or your production URL)
+   - Authorization callback URL: `http://localhost:3000/api/auth/callback/github`
+4. Click "Register application"
+5. Copy the Client ID and generate a new Client Secret
+6. Add these to your `.env` file as `GITHUB_ID` and `GITHUB_SECRET`
+
+#### Google OAuth
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Navigate to "APIs & Services" > "Credentials"
+4. Click "Create Credentials" > "OAuth client ID"
+5. Select "Web application" as the application type
+6. Add authorized JavaScript origins: `http://localhost:3000` (or your production URL)
+7. Add authorized redirect URIs: `http://localhost:3000/api/auth/callback/google`
+8. Click "Create"
+9. Copy the Client ID and Client Secret
+10. Add these to your `.env` file as `GOOGLE_ID` and `GOOGLE_SECRET`
 
 ## Deployment
 
