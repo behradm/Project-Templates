@@ -51,8 +51,18 @@ export default function SearchBar({
               placeholder={placeholder}
               value={value !== undefined ? value : searchQuery}
               onChange={(e) => handleChange(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-md leading-5 bg-secondary text-white placeholder-gray-400 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm transition"
+              className="bg-[#011B1F] border border-[#334155] rounded-md py-2 pl-10 pr-10 w-full text-white focus:outline-none focus:ring-2 focus:ring-[#FA3811] focus:border-transparent text-sm font-normal"
             />
+            {(value !== undefined ? value : searchQuery) && (
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <button
+                  onClick={() => handleChange("")}
+                  className="text-gray-400 hover:text-white transition-colors focus:outline-none"
+                >
+                  <XMarkIcon className="h-5 w-5" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

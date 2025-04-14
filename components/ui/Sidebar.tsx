@@ -19,14 +19,14 @@ export default function Sidebar({ folders, onCreateFolder }: SidebarProps) {
   };
 
   return (
-    <div className={`h-full bg-secondary border-r border-gray-800 transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'}`}>
+    <div className={`h-full bg-[#011B1F] border-r border-[#334155] transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'}`}>
       <div className="p-4 flex items-center justify-between">
-        <h2 className={`text-lg font-medium text-white ${!isOpen && 'sr-only'}`}>
+        <h2 className={`text-lg font-normal text-white ${!isOpen && 'sr-only'}`}>
           Folders
         </h2>
         <button 
           onClick={toggleSidebar}
-          className="p-1 rounded-md text-gray-400 hover:text-white"
+          className="p-1 rounded-md text-gray-400 hover:text-white transition-colors"
           aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
         >
           <svg 
@@ -48,7 +48,7 @@ export default function Sidebar({ folders, onCreateFolder }: SidebarProps) {
       <div className="px-3 py-2">
         <Link
           href="/prompts"
-          className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+          className={`flex items-center px-3 py-2 text-sm font-normal rounded-md ${
             !folderId
               ? 'bg-primary text-accent'
               : 'text-white hover:bg-primary hover:bg-opacity-50'
@@ -64,7 +64,7 @@ export default function Sidebar({ folders, onCreateFolder }: SidebarProps) {
           <Link
             key={folder.id}
             href={`/folders/${folder.id}`}
-            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+            className={`flex items-center px-3 py-2 text-sm font-normal rounded-md ${
               folderId === folder.id
                 ? 'bg-primary text-accent'
                 : 'text-white hover:bg-primary hover:bg-opacity-50'
@@ -79,9 +79,9 @@ export default function Sidebar({ folders, onCreateFolder }: SidebarProps) {
       <div className="px-3 py-3 mt-auto">
         <button
           onClick={onCreateFolder}
-          className="flex items-center w-full px-3 py-2 text-sm font-medium text-white hover:bg-primary hover:bg-opacity-50 rounded-md"
+          className="flex items-center w-full px-3 py-2 text-sm font-normal text-white hover:bg-primary hover:bg-opacity-50 rounded-full transition-colors"
         >
-          <PlusIcon className="mr-3 h-5 w-5 text-accent" />
+          <PlusIcon className="mr-3 h-5 w-5 text-[#FA3811]" />
           {isOpen && <span>New Folder</span>}
         </button>
       </div>

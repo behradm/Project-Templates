@@ -11,6 +11,7 @@
   --color-primary: #032024;
   --color-secondary: #011B1F;
   --color-accent: #FA3811;
+  --color-accent-hover: #e53411;
   --color-text: #FFFFFF;
   --color-text-secondary: #94A3B8;
   --color-border: #334155;
@@ -30,6 +31,7 @@ html.light-mode {
   --color-primary: #F8FAFC;
   --color-secondary: #FFFFFF;
   --color-accent: #FA3811;
+  --color-accent-hover: #e53411;
   --color-text: #0F172A;
   --color-text-secondary: #64748B;
   --color-border: #E2E8F0;
@@ -220,7 +222,7 @@ a {
 }
 
 .btn-accent:hover {
-  background-color: #e63510;
+  background-color: var(--color-accent-hover);
 }
 
 /* Custom animation for slide-in from right */
@@ -342,12 +344,12 @@ a {
 
 .dark .hover\:bg-teal-700:hover,
 .hover\:bg-teal-700:hover {
-  background-color: #e63510 !important;
+  background-color: var(--color-accent-hover) !important;
 }
 
 .dark .hover\:text-teal-400:hover,
 .hover\:text-teal-400:hover {
-  color: #e63510 !important;
+  color: var(--color-accent-hover) !important;
 }
 
 /* Add syntax highlighting styles for code blocks */

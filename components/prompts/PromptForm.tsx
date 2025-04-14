@@ -261,14 +261,14 @@ export default function PromptForm({
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
-        <Dialog.Content className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-primary p-6 shadow-xl overflow-y-auto animate-slide-in-right">
+        <Dialog.Content className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-[#032024] p-6 shadow-xl overflow-y-auto animate-slide-in-right">
           <div className="flex justify-between items-center mb-4">
-            <Dialog.Title className="text-xl font-medium text-white">
+            <Dialog.Title className="text-xl font-normal text-white">
               {initialData ? 'Edit Prompt' : 'Create Prompt'}
             </Dialog.Title>
             <Dialog.Close asChild>
               <button
-                className="text-gray-400 hover:text-white"
+                className="text-gray-400 hover:text-white transition-colors"
                 aria-label="Close"
               >
                 <XMarkIcon className="h-5 w-5" />
@@ -284,16 +284,16 @@ export default function PromptForm({
           
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-300">
+              <label htmlFor="title" className="block text-sm font-normal text-white">
                 Title
               </label>
               <input
                 type="text"
                 id="title"
+                placeholder="Enter title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="mt-1 block w-full rounded-md border border-gray-600 py-2 px-3 shadow-sm bg-secondary text-white focus:border-accent focus:ring-accent sm:text-sm"
-                placeholder="Enter a title for your prompt"
+                className="mt-1 block w-full rounded-md border border-[#334155] py-2 px-3 shadow-sm bg-[#011B1F] text-white focus:border-[#FA3811] focus:ring-[#FA3811] focus:ring-opacity-50 sm:text-sm font-normal"
               />
             </div>
             
@@ -318,7 +318,7 @@ export default function PromptForm({
                 <button
                   type="button"
                   onClick={() => setShowNewFolderForm(true)}
-                  className="text-accent hover:text-white text-sm flex items-center"
+                  className="text-[#FA3811] hover:text-[#e53411] text-sm flex items-center transition-colors font-normal"
                 >
                   <PlusIcon className="h-3 w-3 mr-1" />
                   New Folder
@@ -331,7 +331,7 @@ export default function PromptForm({
                     type="text"
                     value={newFolderName}
                     onChange={(e) => setNewFolderName(e.target.value)}
-                    className="block w-full rounded-md border border-gray-600 py-2 px-3 shadow-sm bg-secondary text-white focus:border-accent focus:ring-accent sm:text-sm"
+                    className="block w-full rounded-md border border-[#334155] py-2 px-3 shadow-sm bg-[#011B1F] text-white focus:border-[#FA3811] focus:ring-[#FA3811] focus:ring-opacity-50 sm:text-sm font-normal"
                     placeholder="Enter folder name"
                   />
                   <div className="flex gap-2">
@@ -339,14 +339,14 @@ export default function PromptForm({
                       type="button"
                       onClick={handleCreateFolder}
                       disabled={isCreatingFolder}
-                      className="flex-1 px-3 py-1 text-sm text-white bg-accent hover:bg-opacity-90 rounded-md"
+                      className="flex-1 px-3 py-1 text-sm text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full transition-colors font-normal"
                     >
                       {isCreatingFolder ? 'Creating...' : 'Create'}
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowNewFolderForm(false)}
-                      className="px-3 py-1 text-sm text-white bg-secondary hover:bg-opacity-90 rounded-md"
+                      className="px-3 py-1 text-sm text-white bg-[#011B1F] hover:bg-[#032024] border border-[#334155] rounded-full transition-colors font-normal"
                     >
                       Cancel
                     </button>
@@ -401,13 +401,13 @@ export default function PromptForm({
             
             <div>
               <div className="flex justify-between items-center">
-                <label className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="tags" className="block text-sm font-normal text-gray-300">
                   Tags
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowNewTagForm(true)}
-                  className="text-accent hover:text-white text-sm flex items-center"
+                  className="text-[#FA3811] hover:text-[#e53411] text-sm flex items-center transition-colors font-normal"
                 >
                   <PlusIcon className="h-3 w-3 mr-1" />
                   New Tag
@@ -444,15 +444,15 @@ export default function PromptForm({
                     <button
                       type="button"
                       onClick={handleCreateTag}
-                      disabled={isCreatingTag}
-                      className="flex-1 px-3 py-1 text-sm text-white bg-accent hover:bg-opacity-90 rounded-md"
+                      disabled={isCreatingTag || selectedColor === null}
+                      className="flex-1 px-3 py-1 text-sm text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full transition-colors font-normal"
                     >
-                      {isCreatingTag ? 'Creating...' : 'Create'}
+                      {isCreatingTag ? 'Creating...' : 'Create Tag'}
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowNewTagForm(false)}
-                      className="px-3 py-1 text-sm text-white bg-secondary hover:bg-opacity-90 rounded-md"
+                      className="px-3 py-1 text-sm text-white bg-[#011B1F] hover:bg-[#032024] border border-[#334155] rounded-full transition-colors font-normal"
                     >
                       Cancel
                     </button>
@@ -469,10 +469,10 @@ export default function PromptForm({
                       <button
                         key={tag.id}
                         type="button"
-                        className={`inline-flex items-center px-3 py-1 rounded-full text-sm ${
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-normal ${
                           selectedTags.includes(tag.id)
                           ? 'ring-2 ring-white' : ''
-                        }`}
+                        } transition-colors`}
                         style={{ 
                           backgroundColor: tagColor.bg, 
                           color: tagColor.text 
@@ -497,17 +497,17 @@ export default function PromptForm({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-sm font-medium text-gray-300 bg-secondary hover:bg-opacity-90 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                className="px-4 py-2 text-sm font-normal text-white bg-[#011B1F] hover:bg-[#032024] border border-[#334155] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#334155] transition-colors"
                 disabled={isSubmitting}
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-opacity-90 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent disabled:opacity-50"
+                className="px-4 py-2 text-sm font-normal text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Saving...' : initialData ? 'Update' : 'Create'}
+                {isSubmitting ? 'Saving...' : initialData ? 'Save Changes' : 'Create Prompt'}
               </button>
             </div>
           </form>

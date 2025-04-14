@@ -134,41 +134,41 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
 
   if (localPrompts.length === 0) {
     return (
-      <div className="text-center py-12 bg-secondary shadow rounded-lg">
-        <p className="text-gray-400">No prompts found. Create your first prompt!</p>
+      <div className="text-center py-12 bg-[#011B1F] shadow rounded-lg">
+        <p className="text-gray-400 font-normal">No prompts found. Create your first prompt!</p>
       </div>
     );
   }
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-table-border">
-        <thead className="bg-table-header-bg">
+      <table className="min-w-full divide-y divide-[#334155]">
+        <thead className="bg-[#011B1F]">
           <tr>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-normal text-gray-300 uppercase tracking-wider">
               Title
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-secondary uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-normal text-gray-300 uppercase tracking-wider">
               Tags
             </th>
-            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-secondary uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-right text-xs font-normal text-gray-300 uppercase tracking-wider">
               Actions
             </th>
           </tr>
         </thead>
-        <tbody className="bg-secondary divide-y divide-table-border">
+        <tbody className="bg-transparent divide-y divide-[#334155]">
           {localPrompts.map((prompt) => (
             <tr 
               key={prompt.id} 
-              className="hover:bg-table-row-hover cursor-pointer"
+              className="hover:bg-[#02272D] transition-colors"
               onClick={(e) => {
                 e.preventDefault();
                 window.location.href = `/prompts/${prompt.id}`;
               }}
             >
               <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm font-medium text-primary">{prompt.title}</div>
-                <div className="text-sm text-secondary truncate max-w-xs">
+                <div className="text-sm font-normal text-white">{prompt.title}</div>
+                <div className="text-sm font-normal text-gray-300 truncate max-w-xs">
                   {prompt.body.substring(0, 60)}{prompt.body.length > 60 ? '...' : ''}
                 </div>
               </td>
@@ -182,7 +182,7 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                     return (
                       <span
                         key={tag.id}
-                        className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium cursor-pointer"
+                        className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-normal cursor-pointer"
                         style={{ 
                           backgroundColor: tagColor.bg, 
                           color: tagColor.text 
@@ -194,18 +194,18 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                     );
                   })}
                   <button
-                    className="inline-flex items-center px-2 py-0.5 rounded text-xs text-white bg-secondary border border-gray-600 hover:bg-primary cursor-pointer ml-1"
+                    className="inline-flex items-center px-2 py-0.5 rounded-full text-xs text-white bg-[#011B1F] border border-[#334155] hover:bg-[#032024] cursor-pointer ml-1 transition-colors"
                     onClick={(e) => toggleTagDropdown(e, prompt.id)}
                   >
                     {prompt.tags.length === 0 ? "Add tags" : "Add tags"}
                   </button>
                   
                   {activeTagPromptId === prompt.id && (
-                    <div className="absolute mt-1 z-10 bg-primary shadow-lg rounded-md border border-gray-700 p-2 max-w-xs">
+                    <div className="absolute mt-1 z-10 bg-[#032024] shadow-lg rounded-md border border-[#334155] p-2 max-w-xs">
                       <div className="mb-2 flex justify-between items-center">
-                        <h4 className="text-white text-sm font-semibold">Manage tags</h4>
+                        <h4 className="text-white text-sm font-normal">Manage tags</h4>
                         <button 
-                          className="text-gray-400 hover:text-white" 
+                          className="text-gray-400 hover:text-white transition-colors" 
                           onClick={closeTagDropdown}
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -217,7 +217,7 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                       <div className="max-h-40 overflow-y-auto">
                         {allTags.length === 0 ? (
                           <div className="flex flex-col items-center justify-center p-2">
-                            <p className="text-sm text-gray-400 mb-2">No tags available</p>
+                            <p className="text-sm text-gray-400 font-normal mb-2">No tags available</p>
                             <a 
                               href="#"
                               onClick={(e) => {
@@ -226,7 +226,7 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                                 document.getElementById('tag-manager-button')?.click();
                                 closeTagDropdown();
                               }}
-                              className="text-accent hover:text-white text-sm"
+                              className="text-[#FA3811] hover:text-[#e53411] text-sm transition-colors font-normal"
                             >
                               Create new tag
                             </a>
@@ -241,7 +241,7 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                               return (
                                 <button
                                   key={tag.id}
-                                  className={`flex items-center px-2 py-1 text-sm text-left rounded hover:bg-gray-700 ${isTagging ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                  className={`flex items-center px-2 py-1 text-sm font-normal text-left rounded hover:bg-[#02272D] ${isTagging ? 'opacity-50 cursor-not-allowed' : ''} transition-colors`}
                                   onClick={(e) => handleTagToggle(e, prompt.id, tag.id, prompt.tags)}
                                   disabled={isTagging}
                                 >
@@ -268,7 +268,7 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                                   document.getElementById('tag-manager-button')?.click();
                                   closeTagDropdown();
                                 }}
-                                className="flex items-center text-accent hover:text-white text-sm"
+                                className="flex items-center text-[#FA3811] hover:text-[#e53411] text-sm transition-colors"
                               >
                                 <PlusIcon className="h-3 w-3 mr-1" />
                                 Create new tag
@@ -281,11 +281,11 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                   )}
                 </div>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-normal">
                 <div className="flex justify-end space-x-2" onClick={(e) => e.stopPropagation()}>
                   <button
                     onClick={() => handleCopy(prompt.id, prompt.body)}
-                    className="text-accent hover:text-white transition-colors"
+                    className="text-[#FA3811] hover:text-[#e53411] transition-colors"
                     aria-label="Copy to clipboard"
                   >
                     {copiedId === prompt.id ? (
@@ -303,7 +303,7 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                       e.stopPropagation();
                       window.location.href = `/prompts/${prompt.id}`;
                     }}
-                    className="text-accent hover:text-white transition-colors"
+                    className="text-[#FA3811] hover:text-[#e53411] transition-colors"
                     aria-label="Edit prompt details"
                   >
                     <PencilIcon className="h-5 w-5" />

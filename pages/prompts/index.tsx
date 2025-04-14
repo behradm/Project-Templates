@@ -117,14 +117,14 @@ export default function PromptsIndex() {
         />
         
         <div className="flex-1 overflow-hidden flex flex-col">
-          <div className="p-4 flex items-center justify-between bg-secondary shadow">
-            <h1 className="text-xl font-bold text-white">
+          <div className="p-4 flex items-center justify-between bg-[#032024] shadow">
+            <h1 className="text-xl font-normal text-white">
               All Prompts
             </h1>
             
             <button
               onClick={() => setIsPromptFormOpen(true)}
-              className="flex items-center px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-opacity-90 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
+              className="flex items-center px-4 py-2 text-sm font-normal text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-colors"
             >
               <PlusIcon className="h-5 w-5 mr-1" />
               New Prompt
@@ -159,15 +159,15 @@ export default function PromptsIndex() {
             </div>
           </div>
           
-          <div className="flex-1 overflow-auto p-4 bg-primary">
+          <div className="flex-1 overflow-auto p-4 bg-[#032024]">
             {error ? (
-              <div className="text-center py-12 bg-secondary shadow rounded-lg">
-                <p className="text-red-500">Error loading prompts.</p>
+              <div className="text-center py-12 bg-[#011B1F] shadow rounded-lg">
+                <p className="text-red-500 font-normal">Error loading prompts.</p>
               </div>
             ) : !promptsData ? (
-              <div className="text-center py-12 bg-secondary shadow rounded-lg">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent mx-auto"></div>
-                <p className="text-gray-400 mt-4">Loading prompts...</p>
+              <div className="text-center py-12 bg-[#011B1F] shadow rounded-lg">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#FA3811] mx-auto"></div>
+                <p className="text-gray-400 font-normal mt-4">Loading prompts...</p>
               </div>
             ) : (
               <PromptTable 
