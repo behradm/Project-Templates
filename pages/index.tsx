@@ -33,7 +33,7 @@ export default function LandingPage() {
                 GitHub
               </a>
               <a 
-                href="/api/auth/signin"
+                href="/auth/signin"
                 className="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm rounded-md shadow-sm text-white bg-[#FA3811] hover:bg-[#e63510]"
               >
                 Sign In
