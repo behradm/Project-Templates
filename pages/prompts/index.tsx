@@ -117,7 +117,7 @@ export default function PromptsIndex() {
         />
         
         <div className="flex-1 overflow-hidden flex flex-col">
-          <div className="p-4 flex items-center justify-between bg-[#032024] shadow">
+          <div className="p-4 flex items-center justify-between bg-[#032024] border-b border-[#1A2A32]">
             <h1 className="text-xl font-normal text-white">
               All Prompts
             </h1>

@@ -4,7 +4,6 @@ import { getServerSession } from 'next-auth/next';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import MainLayout from '@/components/layout/MainLayout';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -17,7 +16,7 @@ export default function Account() {
   const [isLoading, setIsLoading] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [passwordSuccess, setPasswordSuccess] = useState('');
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,27 +70,7 @@ export default function Account() {
       <div className="max-w-2xl mx-auto">
         <h1 className="text-2xl font-bold mb-6">Account Settings</h1>
         
-        <div className="bg-secondary p-6 rounded-lg shadow-md mb-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-normal mb-4">Theme Preference</h2>
-            <button
-              onClick={toggleTheme}
-              className="px-3 py-2 bg-[#011B1F] hover:bg-[#032024] rounded-full hover:bg-opacity-80 transition-colors"
-              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {theme === 'dark' ? (
-                <SunIcon className="h-5 w-5 text-yellow-400" />
-              ) : (
-                <MoonIcon className="h-5 w-5 text-indigo-400" />
-              )}
-            </button>
-          </div>
-          <p className="text-gray-300">
-            Current theme: <span className="font-normal">{theme === 'dark' ? 'Dark' : 'Light'}</span>
-          </p>
-        </div>
-        
-        <div className="bg-secondary p-6 rounded-lg shadow-md">
+        <div className="bg-secondary p-6 rounded-lg">
           <h2 className="text-xl font-normal mb-4">Email & Password</h2>
           
           <div className="mb-6">

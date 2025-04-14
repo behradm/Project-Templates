@@ -19,7 +19,7 @@ export default function Sidebar({ folders, onCreateFolder }: SidebarProps) {
   };
 
   return (
-    <div className={`h-full bg-[#011B1F] border-r border-[#334155] transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'}`}>
+    <div className={`h-full bg-[#011B1F] border-r border-[#1A2A32] transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'}`}>
       <div className="p-4 flex items-center justify-between">
         <h2 className={`text-lg font-normal text-white ${!isOpen && 'sr-only'}`}>
           Folders

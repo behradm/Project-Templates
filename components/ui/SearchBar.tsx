@@ -51,7 +51,7 @@ export default function SearchBar({
               placeholder={placeholder}
               value={value !== undefined ? value : searchQuery}
               onChange={(e) => handleChange(e.target.value)}
-              className="bg-[#011B1F] border border-[#334155] rounded-md py-2 pl-10 pr-10 w-full text-white focus:outline-none focus:ring-2 focus:ring-[#FA3811] focus:border-transparent text-sm font-normal"
+              className="bg-[#011B1F] border border-[#1A2A32] rounded-md py-2 pl-10 pr-10 w-full text-white focus:outline-none focus:ring-2 focus:ring-[#FA3811] focus:border-transparent text-sm font-normal"
             />
             {(value !== undefined ? value : searchQuery) && (
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center">

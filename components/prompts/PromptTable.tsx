@@ -142,7 +142,7 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-[#334155]">
+      <table className="min-w-full divide-y divide-[#1A2A32]">
         <thead className="bg-[#011B1F]">
           <tr>
             <th scope="col" className="px-6 py-3 text-left text-xs font-normal text-gray-300 uppercase tracking-wider">
@@ -156,18 +156,18 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
             </th>
           </tr>
         </thead>
-        <tbody className="bg-transparent divide-y divide-[#334155]">
+        <tbody className="bg-transparent divide-y divide-[#1A2A32]">
           {localPrompts.map((prompt) => (
             <tr 
               key={prompt.id} 
-              className="hover:bg-[#02272D] transition-colors"
+              className="group hover:bg-[#02272D] transition-colors"
               onClick={(e) => {
                 e.preventDefault();
                 window.location.href = `/prompts/${prompt.id}`;
               }}
             >
               <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm font-normal text-white">{prompt.title}</div>
+                <div className="text-sm font-normal text-white group-hover:text-[#FA3811] transition-colors cursor-pointer">{prompt.title}</div>
                 <div className="text-sm font-normal text-gray-300 truncate max-w-xs">
                   {prompt.body.substring(0, 60)}{prompt.body.length > 60 ? '...' : ''}
                 </div>
@@ -194,14 +194,14 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                     );
                   })}
                   <button
-                    className="inline-flex items-center px-2 py-0.5 rounded-full text-xs text-white bg-[#011B1F] border border-[#334155] hover:bg-[#032024] cursor-pointer ml-1 transition-colors"
+                    className="inline-flex items-center px-2 py-0.5 rounded-full text-xs text-white bg-[#011B1F] border border-[#1A2A32] hover:bg-[#032024] cursor-pointer ml-1 transition-colors"
                     onClick={(e) => toggleTagDropdown(e, prompt.id)}
                   >
                     {prompt.tags.length === 0 ? "Add tags" : "Add tags"}
                   </button>
                   
                   {activeTagPromptId === prompt.id && (
-                    <div className="absolute mt-1 z-10 bg-[#032024] shadow-lg rounded-md border border-[#334155] p-2 max-w-xs">
+                    <div className="absolute mt-1 z-10 bg-[#032024] shadow-lg rounded-md border border-[#1A2A32] p-2 max-w-xs">
                       <div className="mb-2 flex justify-between items-center">
                         <h4 className="text-white text-sm font-normal">Manage tags</h4>
                         <button 
@@ -259,7 +259,7 @@ export default function PromptTable({ prompts, onCopy, onEdit, onDelete, allTags
                               );
                             })}
                             
-                            <div className="border-t border-gray-700 my-1 pt-1">
+                            <div className="border-t border-[#1A2A32] my-1 pt-1">
                               <a 
                                 href="#"
                                 onClick={(e) => {

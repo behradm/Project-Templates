@@ -282,7 +282,29 @@ export default function PromptDetail() {
             <span>Back</span>
           </button>
           
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-3">
+            {!isEditing && (
+              <>
+                <button
+                  onClick={handleDeletePrompt}
+                  className="flex items-center justify-center w-10 h-10 text-white bg-[#032024] hover:bg-[#02272D] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
+                  disabled={!prompt || isLoading}
+                  aria-label="Delete prompt"
+                >
+                  <TrashIcon className="h-5 w-5 text-[#FA3811]" />
+                </button>
+                
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="flex items-center justify-center w-10 h-10 text-white bg-[#032024] hover:bg-[#02272D] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
+                  disabled={!prompt}
+                  aria-label="Edit prompt"
+                >
+                  <PencilIcon className="h-5 w-5 text-[#FA3811]" />
+                </button>
+              </>
+            )}
+            
             <button
               onClick={handleCopyToClipboard}
               className="flex items-center px-3 py-2 text-sm font-normal text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
@@ -295,28 +317,6 @@ export default function PromptDetail() {
               )}
               {copiedToClipboard ? 'Copied!' : 'Copy to Clipboard'}
             </button>
-            
-            {!isEditing && (
-              <>
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="flex items-center px-3 py-2 text-sm font-normal text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
-                  disabled={!prompt}
-                >
-                  <PencilIcon className="h-5 w-5 mr-1" />
-                  Edit
-                </button>
-                
-                <button
-                  onClick={handleDeletePrompt}
-                  className="flex items-center px-3 py-2 text-sm font-normal text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
-                  disabled={!prompt || isLoading}
-                >
-                  <TrashIcon className="h-5 w-5 mr-1" />
-                  Delete
-                </button>
-              </>
-            )}
           </div>
         </div>
         
