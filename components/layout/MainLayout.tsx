@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { BookmarkIcon, UserCircleIcon } from '@heroicons/react/24/outline';
@@ -58,9 +58,12 @@ export default function MainLayout({ children, title = 'Prompt Saver' }: MainLay
                     <UserCircleIcon className="h-5 w-5 mr-1" />
                     <span>Account</span>
                   </Link>
-                  <Link href="/api/auth/signout" className="text-primary hover:text-red-500">
+                  <button 
+                    onClick={() => signOut({ callbackUrl: '/' })} 
+                    className="text-primary hover:text-red-500 cursor-pointer"
+                  >
                     Sign Out
-                  </Link>
+                  </button>
                 </div>
               )}
             </div>
