@@ -3,19 +3,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 import { BookmarkIcon, TagIcon, FolderIcon, MagnifyingGlassIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
-import dynamic from 'next/dynamic';
-
-// Import ParticlesBackground with SSR disabled to avoid hydration errors
-const ParticlesBackground = dynamic(
-  () => import('../components/ParticlesBackground'),
-  { ssr: false }
-);
 
 export default function Home() {
   const { data: session } = useSession();
   const [scrolled, setScrolled] = useState(false);
 
-  // Handle scroll effect for navigation
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 10;
@@ -38,14 +30,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Premium Navigation Bar */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-2' : 'py-3'}`}>
         <div className={`mx-auto px-6 max-w-7xl transition-all duration-300 ${scrolled ? 'backdrop-blur-md bg-[#021820]/80 shadow-md rounded-lg mt-2 border border-white/5' : 'bg-transparent'}`}>
           <div className="flex justify-between items-center">
-            {/* Logo */}
             <div className="flex items-center group">
               <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#FA3811] to-[#FA3811]/40 rounded-full blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
                 <BookmarkIcon className="h-6 w-6 text-[#FA3811] relative z-10 transition-transform duration-300 group-hover:rotate-12" />
               </div>
               <span className="ml-2 text-base font-normal relative">
@@ -54,7 +43,6 @@ export default function Home() {
               </span>
             </div>
 
-            {/* Nav Links */}
             <nav>
               <ul className="flex items-center space-x-6">
                 <li className="relative group">
@@ -112,35 +100,18 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Empty div to push content down when header is fixed */}
       <div className="h-20"></div>
 
       <main>
-        {/* Hero Section with animated particles and centered layout */}
         <section className="relative min-h-screen flex items-center pt-16 pb-20 overflow-hidden">
-          {/* Background gradient and particle effect */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#032024] to-[#01171C] z-0">
-            <ParticlesBackground />
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#FA3811] rounded-full filter blur-[120px] opacity-10 transform translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FA3811] rounded-full filter blur-[150px] opacity-5 transform -translate-x-1/2 translate-y-1/2"></div>
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#032024] to-[#01171C] z-0"></div>
 
           <div className="container mx-auto px-6 relative z-10">
             <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
               <h1 className="text-5xl md:text-7xl font-normal leading-tight mb-6">
-                <span className="relative">
-                  The App to <span className="relative">
-                    <span className="absolute -inset-1 bg-[#FA3811]/10 blur-sm"></span>
-                    <span className="relative text-[#FA3811]">Sort</span>
-                  </span> All
-                </span>
+                The App to <span className="text-[#FA3811]">Sort</span> All
                 <br />
-                <span className="relative">
-                  Your <span className="relative">
-                    <span className="absolute -inset-1 bg-[#FA3811]/10 blur-sm"></span>
-                    <span className="relative text-[#FA3811]">Prompts</span>
-                  </span>
-                </span>
+                Your <span className="text-[#FA3811]">Prompts</span>
               </h1>
               
               <p className="text-base text-gray-300 mb-12 leading-relaxed max-w-2xl">
@@ -153,7 +124,7 @@ export default function Home() {
                 {!session ? (
                   <button
                     onClick={() => signIn(undefined, { callbackUrl: '/prompts' })}
-                    className="relative px-8 py-4 rounded-full font-normal overflow-hidden group bg-[#FA3811] hover:bg-[#E53E3E] text-white shadow-xl transition-colors duration-300"
+                    className="relative px-8 py-4 rounded-full font-normal overflow-hidden group bg-[#FA3811] hover:bg-[#E53E3E] text-white transition-colors duration-300"
                   >
                     <div className="relative flex items-center justify-center">
                       <span>Start organizing prompts</span>
@@ -165,7 +136,7 @@ export default function Home() {
                 ) : (
                   <Link 
                     href="/prompts" 
-                    className="relative px-8 py-4 rounded-full font-normal overflow-hidden bg-[#FA3811] hover:bg-[#E53E3E] text-white shadow-xl transition-colors duration-300 flex items-center justify-center"
+                    className="relative px-8 py-4 rounded-full font-normal overflow-hidden bg-[#FA3811] hover:bg-[#E53E3E] text-white transition-colors duration-300 flex items-center justify-center"
                   >
                     <span>Go to Your Prompts</span>
                     <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -190,9 +161,8 @@ export default function Home() {
                 </div>
               </div>
               
-              {/* App screenshot now moved below the text */}
               <div className="mt-20 w-full max-w-5xl mx-auto">
-                <div className="relative z-10 backdrop-blur-md bg-gradient-to-b from-[#032024]/90 to-[#011518]/90 p-4 rounded-xl border border-[#153A42] shadow-2xl">
+                <div className="relative z-10 backdrop-blur-md bg-gradient-to-b from-[#032024]/90 to-[#011518]/90 p-4 rounded-xl border border-[#153A42]">
                   <div className="absolute inset-0 bg-gradient-to-r from-[#FA3811]/5 to-transparent opacity-50 rounded-xl"></div>
                   <div className="flex space-x-2 mb-3">
                     <div className="h-3 w-3 rounded-full bg-[#FA3811]"></div>
@@ -205,14 +175,9 @@ export default function Home() {
                       alt="Prompt Saver Interface" 
                       className="w-full rounded relative z-10"
                     />
-                    
-                    {/* Overlay glow effects */}
-                    <div className="absolute top-1/4 right-0 w-40 h-40 bg-[#FA3811] rounded-full filter blur-[70px] opacity-20 z-0"></div>
-                    <div className="absolute bottom-0 left-1/4 w-40 h-40 bg-[#FA3811] rounded-full filter blur-[50px] opacity-10 z-0"></div>
                   </div>
                 </div>
                 
-                {/* Decorative elements */}
                 <div className="absolute -top-10 -right-10 w-20 h-20 bg-[#FA3811]/10 rounded-full filter blur-[20px]"></div>
                 <div className="absolute -bottom-5 -left-5 w-20 h-20 bg-[#FA3811]/5 rounded-full filter blur-[20px]"></div>
               </div>
@@ -220,9 +185,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Features Section */}
         <section id="features" className="relative py-24 overflow-hidden">
-          {/* Background decorative elements */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#011518] to-[#01171C] z-0"></div>
           <div className="absolute top-0 w-full h-40 bg-gradient-to-b from-[#032024] to-transparent z-0"></div>
           <div className="absolute -left-32 top-1/4 w-64 h-64 bg-[#FA3811] rounded-full filter blur-[120px] opacity-5"></div>
@@ -231,10 +194,7 @@ export default function Home() {
           <div className="container mx-auto px-6 relative z-10">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-normal mb-6">
-                Features Designed for <span className="relative inline-block">
-                  <span className="absolute -inset-1 bg-[#FA3811]/10 blur-sm"></span>
-                  <span className="relative text-[#FA3811]">Prompt Engineers</span>
-                </span>
+                Features Designed for <span className="text-[#FA3811]">Prompt Engineers</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Tools that make managing your prompts effortless and effective
@@ -242,10 +202,9 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Feature Card 1 */}
               <div className="group relative">
                 <div className="absolute inset-0.5 bg-gradient-to-r from-[#FA3811]/20 to-[#FA3811]/0 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] shadow-lg hover:shadow-xl transition-all duration-300 group-hover:border-[#FA3811]/30 h-full overflow-hidden">
+                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] hover:border-[#FA3811]/30 h-full overflow-hidden">
                   <div className="absolute right-0 bottom-0 w-40 h-40 bg-[#FA3811] rounded-full filter blur-[80px] opacity-5 transition-opacity duration-300 group-hover:opacity-10"></div>
                   
                   <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-flex items-center justify-center mb-6 relative z-10">
@@ -259,10 +218,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Feature Card 2 */}
               <div className="group relative">
                 <div className="absolute inset-0.5 bg-gradient-to-r from-[#FA3811]/20 to-[#FA3811]/0 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] shadow-lg hover:shadow-xl transition-all duration-300 group-hover:border-[#FA3811]/30 h-full overflow-hidden">
+                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] hover:border-[#FA3811]/30 h-full overflow-hidden">
                   <div className="absolute right-0 bottom-0 w-40 h-40 bg-[#FA3811] rounded-full filter blur-[80px] opacity-5 transition-opacity duration-300 group-hover:opacity-10"></div>
                   
                   <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-flex items-center justify-center mb-6 relative z-10">
@@ -276,10 +234,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Feature Card 3 */}
               <div className="group relative">
                 <div className="absolute inset-0.5 bg-gradient-to-r from-[#FA3811]/20 to-[#FA3811]/0 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] shadow-lg hover:shadow-xl transition-all duration-300 group-hover:border-[#FA3811]/30 h-full overflow-hidden">
+                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] hover:border-[#FA3811]/30 h-full overflow-hidden">
                   <div className="absolute right-0 bottom-0 w-40 h-40 bg-[#FA3811] rounded-full filter blur-[80px] opacity-5 transition-opacity duration-300 group-hover:opacity-10"></div>
                   
                   <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-flex items-center justify-center mb-6 relative z-10">
@@ -293,10 +250,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Feature Card 4 */}
               <div className="group relative">
                 <div className="absolute inset-0.5 bg-gradient-to-r from-[#FA3811]/20 to-[#FA3811]/0 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] shadow-lg hover:shadow-xl transition-all duration-300 group-hover:border-[#FA3811]/30 h-full overflow-hidden">
+                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] hover:border-[#FA3811]/30 h-full overflow-hidden">
                   <div className="absolute right-0 bottom-0 w-40 h-40 bg-[#FA3811] rounded-full filter blur-[80px] opacity-5 transition-opacity duration-300 group-hover:opacity-10"></div>
                   
                   <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-flex items-center justify-center mb-6 relative z-10">
@@ -310,10 +266,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Feature Card 5 */}
               <div className="group relative">
                 <div className="absolute inset-0.5 bg-gradient-to-r from-[#FA3811]/20 to-[#FA3811]/0 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] shadow-lg hover:shadow-xl transition-all duration-300 group-hover:border-[#FA3811]/30 h-full overflow-hidden">
+                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] hover:border-[#FA3811]/30 h-full overflow-hidden">
                   <div className="absolute right-0 bottom-0 w-40 h-40 bg-[#FA3811] rounded-full filter blur-[80px] opacity-5 transition-opacity duration-300 group-hover:opacity-10"></div>
                   
                   <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-flex items-center justify-center mb-6 relative z-10">
@@ -329,10 +284,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Feature Card 6 */}
               <div className="group relative">
                 <div className="absolute inset-0.5 bg-gradient-to-r from-[#FA3811]/20 to-[#FA3811]/0 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] shadow-lg hover:shadow-xl transition-all duration-300 group-hover:border-[#FA3811]/30 h-full overflow-hidden">
+                <div className="relative bg-gradient-to-br from-[#032024] to-[#011518] p-8 rounded-xl border border-[#153A42] hover:border-[#FA3811]/30 h-full overflow-hidden">
                   <div className="absolute right-0 bottom-0 w-40 h-40 bg-[#FA3811] rounded-full filter blur-[80px] opacity-5 transition-opacity duration-300 group-hover:opacity-10"></div>
                   
                   <div className="bg-[#FA3811]/10 p-3 rounded-lg inline-flex items-center justify-center mb-6 relative z-10">
@@ -351,9 +305,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* How It Works Section */}
         <section id="how-it-works" className="relative py-24 overflow-hidden">
-          {/* Background decorative elements */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#01171C] to-[#032024] z-0"></div>
           <div className="absolute top-1/3 right-0 w-96 h-96 bg-[#FA3811] rounded-full filter blur-[150px] opacity-5 z-0"></div>
           <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-[#FA3811] rounded-full filter blur-[100px] opacity-5 z-0"></div>
@@ -361,10 +313,7 @@ export default function Home() {
           <div className="container mx-auto px-6 relative z-10">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-normal mb-6">
-                How <span className="relative inline-block">
-                  <span className="absolute -inset-1 bg-[#FA3811]/10 blur-sm"></span>
-                  <span className="relative text-[#FA3811]">Prompt Saver</span>
-                </span> Works
+                How <span className="text-[#FA3811]">Prompt Saver</span> Works
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 A streamlined experience from sign-up to daily usage
@@ -372,10 +321,8 @@ export default function Home() {
             </div>
             
             <div className="max-w-4xl mx-auto relative">
-              {/* Timeline connector line */}
               <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#FA3811]/50 via-[#FA3811]/20 to-[#FA3811]/5 transform md:translate-x-px"></div>
               
-              {/* Step 1 */}
               <div className="relative z-10 mb-16 md:mb-24">
                 <div className="flex flex-col md:flex-row items-center">
                   <div className="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0 order-2 md:order-1">
@@ -396,7 +343,6 @@ export default function Home() {
                 </div>
               </div>
               
-              {/* Step 2 */}
               <div className="relative z-10 mb-16 md:mb-24">
                 <div className="flex flex-col md:flex-row items-center">
                   <div className="flex items-center justify-center order-1 w-full md:w-1/2 md:pr-12 mb-6 md:mb-0">
@@ -417,7 +363,6 @@ export default function Home() {
                 </div>
               </div>
               
-              {/* Step 3 */}
               <div className="relative z-10 mb-16 md:mb-24">
                 <div className="flex flex-col md:flex-row items-center">
                   <div className="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mb-8 md:mb-0">
@@ -438,7 +383,6 @@ export default function Home() {
                 </div>
               </div>
               
-              {/* Step 4 */}
               <div className="relative z-10">
                 <div className="flex flex-col md:flex-row items-center">
                   <div className="flex items-center justify-center order-1 w-full md:w-1/2 md:pr-12 mb-6 md:mb-0">
@@ -462,26 +406,20 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="relative py-24 overflow-hidden">
-          {/* Background decorative elements */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#032024] to-[#011518] z-0"></div>
           <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#032024] to-transparent z-0"></div>
           <div className="absolute top-1/2 left-1/4 w-72 h-72 bg-[#FA3811] rounded-full filter blur-[100px] opacity-5 z-0"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FA3811] rounded-full filter blur-[150px] opacity-5 z-0"></div>
           
           <div className="container mx-auto px-6 max-w-5xl relative z-10">
-            <div className="bg-gradient-to-br from-[#032024]/90 to-[#011518]/90 p-12 rounded-2xl border border-[#153A42] shadow-2xl backdrop-blur-sm relative overflow-hidden">
-              {/* Decorative elements */}
+            <div className="bg-gradient-to-br from-[#032024]/90 to-[#011518]/90 p-12 rounded-2xl border border-[#153A42] backdrop-blur-sm relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#FA3811] rounded-full filter blur-[100px] opacity-10 z-0"></div>
               <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#FA3811] rounded-full filter blur-[50px] opacity-5 z-0"></div>
               
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-normal text-center mb-6">
-                  Ready to Organize Your <span className="relative inline-block">
-                    <span className="absolute -inset-1 bg-[#FA3811]/10 blur-sm"></span>
-                    <span className="relative text-[#FA3811]">Prompt Library</span>
-                  </span>?
+                  Ready to Organize Your <span className="text-[#FA3811]">Prompt Library</span>?
                 </h2>
                 
                 <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 font-normal text-center">
@@ -492,7 +430,7 @@ export default function Home() {
                   {!session ? (
                     <button
                       onClick={() => signIn(undefined, { callbackUrl: '/prompts' })}
-                      className="relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-normal text-white rounded-full group"
+                      className="relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-normal text-white rounded-full group bg-[#FA3811] hover:bg-[#E53E3E] transition-colors duration-300"
                     >
                       <span className="absolute w-full h-full bg-gradient-to-br from-[#FA3811] to-[#FA3811]/80 group-hover:from-[#FA3811] group-hover:to-[#E53E3E] transition-all duration-500 ease-out rounded-full"></span>
                       <span className="relative flex items-center">
@@ -505,7 +443,7 @@ export default function Home() {
                   ) : (
                     <Link 
                       href="/prompts" 
-                      className="relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-normal text-white rounded-full group"
+                      className="relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-normal text-white rounded-full group bg-[#FA3811] hover:bg-[#E53E3E] transition-colors duration-300"
                     >
                       <span className="absolute w-full h-full bg-gradient-to-br from-[#FA3811] to-[#FA3811]/80 group-hover:from-[#FA3811] group-hover:to-[#E53E3E] transition-all duration-500 ease-out rounded-full"></span>
                       <span className="relative flex items-center">
@@ -539,14 +477,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Footer */}
         <footer className="relative py-12 border-t border-[#153A42]/50 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-[#011518] to-[#021820] z-0"></div>
           <div className="container mx-auto px-6 relative z-10">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="flex items-center mb-6 md:mb-0 group">
                 <div className="relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-[#FA3811] to-[#FA3811]/40 rounded-full blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
                   <BookmarkIcon className="h-8 w-8 text-[#FA3811] relative z-10" />
                 </div>
                 <span className="ml-2 text-xl font-normal">Prompt Saver</span>

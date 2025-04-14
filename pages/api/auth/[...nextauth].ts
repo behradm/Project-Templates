@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "../../../lib/prisma"
@@ -12,6 +13,7 @@ declare module "next-auth" {
     email?: string | null;
     name?: string | null;
     image?: string | null;
+    password?: string | null;
   }
   
   interface Session {
@@ -59,6 +61,10 @@ export const authOptions: NextAuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID || "",
       clientSecret: process.env.GITHUB_SECRET || "",
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID || "",
+      clientSecret: process.env.GOOGLE_SECRET || "",
     }),
     CredentialsProvider({
       name: "Credentials",

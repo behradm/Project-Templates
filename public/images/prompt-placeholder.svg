@@ -1,0 +1,20 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <rect width="500" height="500" fill="url(#paint0_linear)" />
+  
+  <!-- Abstract shapes -->
+  <circle cx="150" cy="150" r="80" fill="#053D44" fill-opacity="0.6" />
+  <rect x="300" y="200" width="150" height="150" rx="10" fill="#076570" fill-opacity="0.5" />
+  <path d="M100 350 L200 300 L300 400 L100 350Z" fill="#FA3811" fill-opacity="0.3" />
+  
+  <!-- Bookmark icon outline -->
+  <path d="M250 120 L200 120 L200 330 L250 300 L300 330 L300 120 L250 120Z" stroke="#FA3811" stroke-width="2" fill="none" />
+  
+  <!-- Defs for gradient -->
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="500" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#032024" />
+      <stop offset="1" stop-color="#076570" />
+    </linearGradient>
+  </defs>
+</svg>
