@@ -35,6 +35,7 @@
     "next": "^14.0.4",
     "next-auth": "^4.24.11",
     "openai": "^4.93.0",
+    "particles.js": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.5.2",
