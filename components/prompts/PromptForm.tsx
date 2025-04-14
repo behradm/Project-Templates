@@ -260,10 +260,10 @@ export default function PromptForm({
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
-        <Dialog.Content className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-[#032024] p-6 shadow-xl overflow-y-auto animate-slide-in-right">
+        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
+        <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#032024] p-6 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-4">
-            <Dialog.Title className="text-xl font-normal text-white">
+            <Dialog.Title className="text-2xl font-normal text-white">
               {initialData ? 'Edit Prompt' : 'Create Prompt'}
             </Dialog.Title>
             <Dialog.Close asChild>
@@ -339,14 +339,14 @@ export default function PromptForm({
                       type="button"
                       onClick={handleCreateFolder}
                       disabled={isCreatingFolder}
-                      className="flex-1 px-3 py-1 text-sm text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full transition-colors font-normal"
+                      className="flex-1 px-3 py-1 text-sm text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors font-normal"
                     >
                       {isCreatingFolder ? 'Creating...' : 'Create'}
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowNewFolderForm(false)}
-                      className="px-3 py-1 text-sm text-white bg-[#011B1F] hover:bg-[#032024] border border-[#334155] rounded-full transition-colors font-normal"
+                      className="px-3 py-1 text-sm text-white bg-[#011B1F] hover:bg-[#032024] border border-[#334155] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#334155] transition-colors font-normal"
                     >
                       Cancel
                     </button>
@@ -445,14 +445,14 @@ export default function PromptForm({
                       type="button"
                       onClick={handleCreateTag}
                       disabled={isCreatingTag || selectedColor === null}
-                      className="flex-1 px-3 py-1 text-sm text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full transition-colors font-normal"
+                      className="flex-1 px-3 py-1 text-sm text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors font-normal"
                     >
                       {isCreatingTag ? 'Creating...' : 'Create Tag'}
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowNewTagForm(false)}
-                      className="px-3 py-1 text-sm text-white bg-[#011B1F] hover:bg-[#032024] border border-[#334155] rounded-full transition-colors font-normal"
+                      className="px-3 py-1 text-sm text-white bg-[#011B1F] hover:bg-[#032024] border border-[#334155] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#334155] transition-colors font-normal"
                     >
                       Cancel
                     </button>

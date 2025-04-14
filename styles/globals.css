@@ -977,3 +977,88 @@ html.light-mode .prompt-content:empty::before {
   content: "No content available";
   color: #9CA3AF;
 }
+
+/* Additional light mode fixes for specific components */
+html.light-mode .sidebar {
+  background-color: #F1F5F9;
+  border-right: 1px solid #E2E8F0;
+}
+
+html.light-mode .sidebar button,
+html.light-mode .sidebar a {
+  color: #0F172A;
+}
+
+html.light-mode .sidebar button:hover,
+html.light-mode .sidebar a:hover {
+  background-color: #E2E8F0;
+}
+
+html.light-mode .sidebar button svg,
+html.light-mode .sidebar a svg {
+  color: #64748B; 
+}
+
+html.light-mode .sidebar .text-accent {
+  color: #FA3811 !important;
+}
+
+/* Fixing modal backgrounds and text in light mode */
+html.light-mode .fixed.inset-0.bg-black\/50,
+html.light-mode .fixed.inset-0.bg-black.bg-opacity-50 {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+html.light-mode .fixed.top-1\/2.left-1\/2.-translate-x-1\/2.-translate-y-1\/2.bg-\[\#032024\] {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+/* Fix for modal content and headings */
+html.light-mode [role="dialog"] h2,
+html.light-mode [role="dialog"] h3,
+html.light-mode [role="dialog"] .text-white,
+html.light-mode [role="dialog"] .text-lg.font-normal.text-white {
+  color: #0F172A !important;
+}
+
+/* Fix for prompt detail page */
+html.light-mode .prompt-detail-content,
+html.light-mode .prompt-body {
+  background-color: #FFFFFF;
+  color: #0F172A;
+}
+
+html.light-mode .prompt-body pre,
+html.light-mode .prompt-body code {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* Fix for folder and tag icons in sidebar when collapsed */
+html.light-mode .sidebar-collapsed-icon {
+  color: #0F172A;
+  background-color: #E2E8F0;
+}
+
+/* Fix for form inputs in light mode */
+html.light-mode input,
+html.light-mode textarea,
+html.light-mode select {
+  background-color: #FFFFFF;
+  border-color: #E2E8F0;
+  color: #0F172A;
+}
+
+html.light-mode input:focus,
+html.light-mode textarea:focus,
+html.light-mode select:focus {
+  border-color: #FA3811;
+  box-shadow: 0 0 0 2px rgba(250, 56, 17, 0.2);
+}
+
+/* Fix for tag manager modal */
+html.light-mode .tag-manager-title,
+html.light-mode .manage-tags-heading {
+  color: #0F172A !important;
+}

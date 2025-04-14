@@ -276,7 +276,7 @@ export default function PromptDetail() {
         <div className="mb-6 flex items-center justify-between">
           <button
             onClick={() => router.back()}
-            className="flex items-center text-accent hover:text-white"
+            className="flex items-center text-[#FA3811] hover:text-[#e53411] transition-colors font-normal"
           >
             <ArrowLeftIcon className="h-5 w-5 mr-1" />
             <span>Back</span>
@@ -285,7 +285,7 @@ export default function PromptDetail() {
           <div className="flex items-center space-x-2">
             <button
               onClick={handleCopyToClipboard}
-              className="flex items-center px-3 py-2 text-sm font-medium text-white bg-accent hover:bg-opacity-90 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
+              className="flex items-center px-3 py-2 text-sm font-normal text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
               disabled={!prompt}
             >
               {copiedToClipboard ? (
@@ -300,7 +300,7 @@ export default function PromptDetail() {
               <>
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-white bg-accent hover:bg-opacity-90 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
+                  className="flex items-center px-3 py-2 text-sm font-normal text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
                   disabled={!prompt}
                 >
                   <PencilIcon className="h-5 w-5 mr-1" />
@@ -309,7 +309,7 @@ export default function PromptDetail() {
                 
                 <button
                   onClick={handleDeletePrompt}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-opacity-90 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  className="flex items-center px-3 py-2 text-sm font-normal text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
                   disabled={!prompt || isLoading}
                 >
                   <TrashIcon className="h-5 w-5 mr-1" />
@@ -376,7 +376,7 @@ export default function PromptDetail() {
                   <button
                     type="button"
                     onClick={() => setShowNewFolderForm(true)}
-                    className="text-accent hover:text-white text-sm flex items-center"
+                    className="text-[#FA3811] hover:text-[#e53411] transition-colors text-sm flex items-center"
                   >
                     <PlusIcon className="h-3 w-3 mr-1" />
                     New Folder
@@ -397,14 +397,14 @@ export default function PromptDetail() {
                         type="button"
                         onClick={handleCreateFolder}
                         disabled={isCreatingFolder}
-                        className="flex-1 px-3 py-1 text-sm text-white bg-accent hover:bg-opacity-90 rounded-md"
+                        className="flex-1 px-3 py-1 text-sm text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
                       >
                         {isCreatingFolder ? 'Creating...' : 'Create'}
                       </button>
                       <button
                         type="button"
                         onClick={() => setShowNewFolderForm(false)}
-                        className="px-3 py-1 text-sm text-white bg-primary hover:bg-opacity-90 rounded-md"
+                        className="px-3 py-1 text-sm text-white bg-primary hover:bg-opacity-90 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                       >
                         Cancel
                       </button>
@@ -435,7 +435,7 @@ export default function PromptDetail() {
                   <button
                     type="button"
                     onClick={() => setShowNewTagForm(true)}
-                    className="text-accent hover:text-white text-sm flex items-center"
+                    className="text-[#FA3811] hover:text-[#e53411] transition-colors text-sm flex items-center"
                   >
                     <PlusIcon className="h-3 w-3 mr-1" />
                     New Tag
@@ -473,14 +473,14 @@ export default function PromptDetail() {
                         type="button"
                         onClick={handleCreateTag}
                         disabled={isCreatingTag}
-                        className="flex-1 px-3 py-1 text-sm text-white bg-accent hover:bg-opacity-90 rounded-md"
+                        className="flex-1 px-3 py-1 text-sm text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors"
                       >
                         {isCreatingTag ? 'Creating...' : 'Create'}
                       </button>
                       <button
                         type="button"
                         onClick={() => setShowNewTagForm(false)}
-                        className="px-3 py-1 text-sm text-white bg-primary hover:bg-opacity-90 rounded-md"
+                        className="px-3 py-1 text-sm text-white bg-primary hover:bg-opacity-90 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                       >
                         Cancel
                       </button>
@@ -525,14 +525,14 @@ export default function PromptDetail() {
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-300 bg-primary hover:bg-opacity-90 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                  className="px-4 py-2 text-sm font-medium text-gray-300 bg-primary hover:bg-opacity-90 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                   disabled={isLoading}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-opacity-90 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent disabled:opacity-50"
+                  className="px-4 py-2 text-sm font-medium text-white bg-[#FA3811] hover:bg-[#e53411] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] transition-colors disabled:opacity-50"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Saving...' : 'Save Changes'}
@@ -541,12 +541,10 @@ export default function PromptDetail() {
             </form>
           </div>
         ) : (
-          <div className="bg-secondary shadow rounded-lg p-8">
-            <h1 className="text-2xl font-bold text-white mb-2">
-              {prompt.title}
-            </h1>
+          <div className="bg-secondary shadow rounded-lg p-8 prompt-detail-content">
+            <h1 className="text-2xl font-normal mb-4">{prompt.title}</h1>
             
-            <div className="flex flex-wrap items-center text-sm text-gray-400 mb-6">
+            <div className="flex items-center space-x-2 mb-6 text-text-secondary">
               <span className="mr-4 mb-2">
                 Folder: <span className="font-medium">{prompt.folder.name}</span>
               </span>
@@ -559,32 +557,29 @@ export default function PromptDetail() {
             </div>
             
             {prompt.tags.length > 0 && (
-              <div className="mb-6">
-                <div className="flex flex-wrap gap-2">
-                  {prompt.tags.map((tag: Tag) => {
-                    // Get the tag color
-                    const colorIndex = tag.color !== undefined ? tag.color : 0;
-                    const tagColor = TAG_COLORS[colorIndex] || TAG_COLORS[0];
-                    
-                    return (
-                      <span
-                        key={tag.id}
-                        className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
-                        style={{ 
-                          backgroundColor: tagColor.bg, 
-                          color: tagColor.text 
-                        }}
-                      >
-                        {tag.name}
-                      </span>
-                    );
-                  })}
-                </div>
+              <div className="flex flex-wrap gap-2 mt-6">
+                {prompt.tags.map((tag: Tag) => {
+                  // Get the tag color
+                  const colorIndex = tag.color !== undefined ? tag.color : 0;
+                  const tagColor = TAG_COLORS[colorIndex] || TAG_COLORS[0];
+                  
+                  return (
+                    <span
+                      key={tag.id}
+                      className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+                      style={{ 
+                        backgroundColor: tagColor.bg, 
+                        color: tagColor.text 
+                      }}
+                    >
+                      {tag.name}
+                    </span>
+                  );
+                })}
               </div>
             )}
             
-            {/* Display prompt content with proper code formatting */}
-            <div className="bg-primary p-4 rounded-md overflow-auto">
+            <div className="mt-6 p-4 bg-primary rounded-md prompt-body">
               {/* Replace simple pre tag with a markdown renderer */}
               <div 
                 className="prose prose-invert prose-pre:bg-gray-800 prose-pre:text-gray-300 prose-pre:p-4 prose-pre:rounded-md max-w-none"

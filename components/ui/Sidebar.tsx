@@ -54,7 +54,7 @@ export default function Sidebar({ folders, onCreateFolder }: SidebarProps) {
               : 'text-white hover:bg-primary hover:bg-opacity-50'
           }`}
         >
-          <HomeIcon className={`mr-3 h-5 w-5 ${!folderId ? 'text-accent' : 'text-white'}`} />
+          <HomeIcon className={`h-5 w-5 ${isOpen ? 'mr-3' : 'mx-auto sidebar-collapsed-icon'}`} />
           {isOpen && <span>All Prompts</span>}
         </Link>
       </div>
@@ -70,7 +70,7 @@ export default function Sidebar({ folders, onCreateFolder }: SidebarProps) {
                 : 'text-white hover:bg-primary hover:bg-opacity-50'
             }`}
           >
-            <FolderIcon className={`mr-3 h-5 w-5 ${folderId === folder.id ? 'text-accent' : 'text-white'}`} />
+            <FolderIcon className={`h-5 w-5 ${isOpen ? 'mr-3' : 'mx-auto sidebar-collapsed-icon'}`} />
             {isOpen && <span className="truncate">{folder.name}</span>}
           </Link>
         ))}

@@ -73,10 +73,10 @@ export default function Account() {
         
         <div className="bg-secondary p-6 rounded-lg shadow-md mb-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Theme Preference</h2>
+            <h2 className="text-xl font-normal mb-4">Theme Preference</h2>
             <button
               onClick={toggleTheme}
-              className="px-3 py-2 bg-input rounded-full hover:bg-opacity-80"
+              className="px-3 py-2 bg-[#011B1F] hover:bg-[#032024] rounded-full hover:bg-opacity-80 transition-colors"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {theme === 'dark' ? (
@@ -86,16 +86,16 @@ export default function Account() {
               )}
             </button>
           </div>
-          <p className="text-secondary">
-            Current theme: <span className="font-semibold">{theme === 'dark' ? 'Dark' : 'Light'}</span>
+          <p className="text-gray-300">
+            Current theme: <span className="font-normal">{theme === 'dark' ? 'Dark' : 'Light'}</span>
           </p>
         </div>
         
         <div className="bg-secondary p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Email & Password</h2>
+          <h2 className="text-xl font-normal mb-4">Email & Password</h2>
           
           <div className="mb-6">
-            <label className="block text-sm font-medium text-secondary mb-1">
+            <label className="block text-sm font-normal text-gray-300 mb-1">
               Email Address
             </label>
             <div className="px-3 py-2 bg-input border border-themed rounded-md">
@@ -104,7 +104,7 @@ export default function Account() {
           </div>
           
           <form onSubmit={handlePasswordChange} className="space-y-4">
-            <h3 className="font-medium">Change Password</h3>
+            <h3 className="font-normal">Change Password</h3>
             
             {passwordError && (
               <div className="p-3 bg-red-500/20 border border-red-500 text-red-100 rounded-md text-sm">
@@ -119,7 +119,7 @@ export default function Account() {
             )}
             
             <div>
-              <label htmlFor="currentPassword" className="block text-sm font-medium text-secondary mb-1">
+              <label htmlFor="currentPassword" className="block text-sm font-normal text-gray-300 mb-1">
                 Current Password
               </label>
               <input
@@ -132,7 +132,7 @@ export default function Account() {
             </div>
             
             <div>
-              <label htmlFor="newPassword" className="block text-sm font-medium text-secondary mb-1">
+              <label htmlFor="newPassword" className="block text-sm font-normal text-gray-300 mb-1">
                 New Password
               </label>
               <input
@@ -145,7 +145,7 @@ export default function Account() {
             </div>
             
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-secondary mb-1">
+              <label htmlFor="confirmPassword" className="block text-sm font-normal text-gray-300 mb-1">
                 Confirm New Password
               </label>
               <input
@@ -161,7 +161,7 @@ export default function Account() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent disabled:opacity-50"
+                className="w-full px-4 py-2 bg-[#FA3811] hover:bg-[#e53411] text-white rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FA3811] disabled:opacity-50 font-normal"
               >
                 {isLoading ? 'Updating...' : 'Update Password'}
               </button>

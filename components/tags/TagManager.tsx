@@ -110,7 +110,7 @@ export default function TagManager({ existingTags, onSelect, selectedTags = [], 
           <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
           <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary p-6 rounded-lg shadow-xl max-w-md w-full">
             <div className="flex justify-between items-center mb-4">
-              <Dialog.Title className="text-xl font-bold text-white">
+              <Dialog.Title className="text-xl font-normal text-white manage-tags-heading">
                 Manage Tags
               </Dialog.Title>
               <Dialog.Close className="text-gray-400 hover:text-white">
@@ -146,7 +146,7 @@ export default function TagManager({ existingTags, onSelect, selectedTags = [], 
                 <div className="flex space-x-2">
                   <button
                     onClick={handleCreateTag}
-                    className="flex-1 px-3 py-2 mt-2 bg-accent text-white rounded-md hover:bg-opacity-90 flex items-center justify-center"
+                    className="flex-1 px-3 py-2 mt-2 bg-[#FA3811] hover:bg-[#e53411] text-white rounded-full transition-colors flex items-center justify-center font-normal"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -156,7 +156,7 @@ export default function TagManager({ existingTags, onSelect, selectedTags = [], 
                   
                   <button
                     onClick={() => setIsCreatingTag(false)}
-                    className="px-3 py-2 mt-2 bg-secondary text-white rounded-md hover:bg-opacity-90 flex items-center justify-center"
+                    className="px-3 py-2 mt-2 bg-[#011B1F] hover:bg-[#032024] text-white border border-[#334155] rounded-full transition-colors flex items-center justify-center font-normal"
                   >
                     Cancel
                   </button>
@@ -194,7 +194,7 @@ export default function TagManager({ existingTags, onSelect, selectedTags = [], 
                 
                 <button
                   onClick={() => setIsCreatingTag(true)}
-                  className="w-full px-3 py-2 bg-accent text-white rounded-md hover:bg-opacity-90 flex items-center justify-center"
+                  className="w-full px-3 py-2 bg-[#FA3811] hover:bg-[#e53411] text-white rounded-full transition-colors flex items-center justify-center font-normal"
                 >
                   <PlusIcon className="h-5 w-5 mr-1" />
                   Create New Tag
