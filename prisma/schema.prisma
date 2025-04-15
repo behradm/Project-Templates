@@ -19,6 +19,11 @@ model User {
   password      String?
   accounts      Account[]
   sessions      Session[]
+  prompts       Prompt[]
+  folders       Folder[]
+  tags          Tag[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Account {
@@ -54,4 +59,69 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// New models for Prompt Saver
+
+model Folder {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  bannerUrl   String?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  prompts     Prompt[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([name, userId]) // Folder names must be unique per user
+  @@index([userId])
+}
+
+model Prompt {
+  id         String       @id @default(cuid())
+  title      String
+  body       String       @db.Text
+  copyCount  Int          @default(0)
+  photoUrls  String[]     // For future implementation
+  folderId   String
+  folder     Folder       @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  promptTags PromptTag[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@index([userId])
+  @@index([folderId])
+  @@index([title]) // For search performance
+}
+
+model Tag {
+  id         String       @id @default(cuid())
+  name       String
+  color      Int?        @default(0)
+  userId     String
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  promptTags PromptTag[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@unique([name, userId]) // Tag names must be unique per user
+  @@index([userId])
+  @@index([name]) // For search performance
+}
+
+// Junction table for many-to-many relationship between Prompt and Tag
+model PromptTag {
+  id        String   @id @default(cuid())
+  promptId  String
+  prompt    Prompt   @relation(fields: [promptId], references: [id], onDelete: Cascade)
+  tagId     String
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([promptId, tagId])
+  @@index([promptId])
+  @@index([tagId])
 }

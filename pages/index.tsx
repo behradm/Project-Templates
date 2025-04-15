@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { signIn, useSession } from 'next-auth/react';
 
-export default function LandingPage() {
-  const router = useRouter();
-  
+export default function Home() {
+  const { data: session } = useSession();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrolled]);
+
   return (
-    <div className="min-h-screen bg-[#032024] text-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#032024] to-[#011518] text-white overflow-x-hidden">
       <Head>
-        <title>Next.js Fullstack Template | Launch Your App Faster</title>
-        <meta name="description" content="A complete starter template for building modern web applications with Next.js" />
+        <title>Next.js Fullstack Template</title>
+        <meta name="description" content="A complete Next.js fullstack template with authentication, database, and more" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -87,10 +102,6 @@ export default function LandingPage() {
                 Learn More
               </a>
             </div>
-            
-            {/* Optional floating elements for visual interest */}
-            <div className="absolute bottom-10 right-10 h-20 w-20 rounded-full border border-gray-600 opacity-20 hidden md:block"></div>
-            <div className="absolute top-40 right-20 h-12 w-12 rounded-full border border-gray-600 opacity-20 hidden md:block"></div>
           </div>
         </div>
       </section>
@@ -133,7 +144,7 @@ export default function LandingPage() {
                   <div className="-mt-6">
                     <div className="inline-flex items-center justify-center p-3 bg-[#FA3811] rounded-md shadow-lg">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
                       </svg>
                     </div>
                     <h3 className="mt-6 text-lg text-white">
@@ -151,7 +162,7 @@ export default function LandingPage() {
                   <div className="-mt-6">
                     <div className="inline-flex items-center justify-center p-3 bg-[#FA3811] rounded-md shadow-lg">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                       </svg>
                     </div>
                     <h3 className="mt-6 text-lg text-white">

@@ -1,0 +1,165 @@
+/* Custom styles for react-markdown-editor-lite in dark theme */
+.dark-theme .rc-md-editor {
+  background-color: #1e1e1e;
+  border-color: #333;
+  color: #eee;
+}
+
+/* Toolbar */
+.dark-theme .rc-md-navigation {
+  background-color: #2a2a2a;
+  border-color: #333;
+}
+
+.dark-theme .button-wrap .button {
+  color: #ccc;
+}
+
+.dark-theme .button-wrap .button:hover {
+  color: #fff;
+  background-color: #3a3a3a;
+}
+
+.dark-theme .rc-md-editor .editor-container .sec-md .input {
+  color: #eee;
+  background-color: #1e1e1e;
+}
+
+/* Code blocks */
+.dark-theme pre {
+  background-color: #282c34;
+  color: #abb2bf;
+  border-radius: 4px;
+  padding: 1em;
+}
+
+.dark-theme code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+}
+
+/* Preview pane */
+.dark-theme .rc-md-editor .editor-container .sec-html {
+  background-color: #1e1e1e;
+  color: #eee;
+}
+
+.dark-theme .rc-md-editor .editor-container .sec-html .html-wrap {
+  background-color: #1e1e1e;
+  color: #eee;
+}
+
+/* Links */
+.dark-theme .html-wrap a {
+  color: #4dabf7;
+}
+
+/* Headings */
+.dark-theme .html-wrap h1,
+.dark-theme .html-wrap h2,
+.dark-theme .html-wrap h3,
+.dark-theme .html-wrap h4,
+.dark-theme .html-wrap h5,
+.dark-theme .html-wrap h6 {
+  color: #eee;
+}
+
+/* Blockquotes */
+.dark-theme .html-wrap blockquote {
+  border-left: 4px solid #555;
+  padding-left: 1em;
+  color: #bbb;
+}
+
+/* Tables */
+.dark-theme .html-wrap table {
+  border-collapse: collapse;
+}
+
+.dark-theme .html-wrap th,
+.dark-theme .html-wrap td {
+  border: 1px solid #444;
+  padding: 6px 13px;
+}
+
+.dark-theme .html-wrap th {
+  background-color: #2a2a2a;
+}
+
+.dark-theme .html-wrap tr:nth-child(2n) {
+  background-color: #252525;
+}
+
+/* Full screen mode */
+.dark-theme.rc-md-editor-fullscreen {
+  background-color: #1e1e1e;
+}
+
+/* Overall editor wrapper */
+.markdown-editor-wrapper {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Code block syntax highlighting for highlight.js */
+.hljs-comment,
+.hljs-quote {
+  color: #7a7a7a;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: #f95c5c;
+}
+
+.hljs-number,
+.hljs-built_in,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: #d19a66;
+}
+
+.hljs-attribute {
+  color: #e6c07b;
+}
+
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #98c379;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #61aeee;
+}
+
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #c678dd;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background-color: #282c34;
+  color: #abb2bf;
+  padding: 0.5em;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}

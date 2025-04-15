@@ -2,12 +2,191 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Questrial font */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+/* Custom color variables */
+:root {
+  /* Dark theme colors (default) */
+  --color-primary: #032024;
+  --color-secondary: #011B1F;
+  --color-accent: #FA3811;
+  --color-accent-hover: #e53411;
+  --color-text: #FFFFFF;
+  --color-text-secondary: #94A3B8;
+  --color-border: #334155;
+  --color-input-bg: #1E293B;
+  --color-button-bg: #1E293B;
+  --color-error: #EF4444;
+  --color-success: #10B981;
+  
+  /* Table-specific styles for dark mode */
+  --color-table-header-bg: #011B1F;
+  --color-table-row-hover: #02272D;
+  --color-table-border: #334155;
+}
+
+html.light-mode {
+  /* Light theme colors */
+  --color-primary: #F8FAFC;
+  --color-secondary: #FFFFFF;
+  --color-accent: #FA3811;
+  --color-accent-hover: #e53411;
+  --color-text: #0F172A;
+  --color-text-secondary: #64748B;
+  --color-border: #E2E8F0;
+  --color-input-bg: #F1F5F9;
+  --color-button-bg: #E2E8F0;
+  --color-error: #EF4444;
+  --color-success: #10B981;
+  
+  /* Table-specific styles for light mode */
+  --color-table-header-bg: #F1F5F9;
+  --color-table-row-hover: #F8FAFC;
+  --color-table-border: #E2E8F0;
+}
+
+/* Using CSS variables for themed components */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.text-primary {
+  color: var(--color-text);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.border-themed {
+  border-color: var(--color-border);
+}
+
+.bg-input {
+  background-color: var(--color-input-bg);
+}
+
+/* Override for MD editor in light mode */
+html.light-mode .rc-md-editor {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+html.light-mode .rc-md-navigation {
+  background-color: var(--color-input-bg);
+  border-color: var(--color-border);
+}
+
+html.light-mode .editor-container {
+  background-color: var(--color-input-bg);
+  color: var(--color-text);
+}
+
+/* Custom utility classes using theme variables */
+.bg-table-header-bg {
+  background-color: var(--color-table-header-bg);
+}
+
+.bg-table-row-hover:hover {
+  background-color: var(--color-table-row-hover);
+}
+
+.divide-table-border > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--color-table-border);
+}
+
+/* Specific styles for the markdown editor in light mode */
+html.light-mode .rc-md-editor {
+  border-color: var(--color-border);
+  background-color: var(--color-secondary);
+}
+
+html.light-mode .rc-md-editor .rc-md-navigation {
+  background-color: var(--color-table-header-bg);
+  border-color: var(--color-border);
+}
+
+html.light-mode .rc-md-editor .editor-container {
+  color: var(--color-text);
+}
+
+html.light-mode .rc-md-editor .editor-container textarea {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+}
+
+html.light-mode .rc-md-editor .editor-container .sec-md .input {
+  color: var(--color-text);
+  background-color: var(--color-secondary);
+}
+
+html.light-mode pre {
+  background-color: var(--color-input-bg) !important;
+  color: var(--color-text) !important;
+}
+
+html.light-mode code {
+  background-color: var(--color-input-bg) !important;
+  color: var(--color-text) !important;
+}
+
+/* Fix for code blocks in light mode */
+html.light-mode .hljs-keyword,
+html.light-mode .hljs-selector-tag,
+html.light-mode .hljs-addition {
+  color: #8959a8;
+}
+
+html.light-mode .hljs-string,
+html.light-mode .hljs-meta .hljs-string {
+  color: #718c00;
+}
+
+html.light-mode .hljs-title,
+html.light-mode .hljs-type {
+  color: #4271ae;
+}
+
+html.light-mode .hljs-comment {
+  color: #8e908c;
+}
+
+html.light-mode .hljs-variable,
+html.light-mode .hljs-attribute,
+html.light-mode .hljs-template-variable {
+  color: #c82829;
+}
+
+/* Override for MD editor in light mode */
+html.light-mode .rc-md-editor {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+html.light-mode .rc-md-navigation {
+  background-color: var(--color-input-bg);
+  border-color: var(--color-border);
+}
+
+html.light-mode .editor-container {
+  background-color: var(--color-input-bg);
+  color: var(--color-text);
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Questrial', sans-serif;
+  background-color: var(--color-primary);
+  color: var(--color-text);
 }
 
 a {
@@ -17,4 +196,869 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* Custom utility classes */
+.bg-accent {
+  background-color: var(--color-accent) !important;
+}
+
+.text-accent {
+  color: var(--color-accent) !important;
+}
+
+.border-accent {
+  border-color: var(--color-accent) !important;
+}
+
+.hover-accent:hover {
+  color: var(--color-accent) !important;
+}
+
+.btn-accent {
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+}
+
+.btn-accent:hover {
+  background-color: var(--color-accent-hover);
+}
+
+/* Custom animation for slide-in from right */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+/* Dark theme for markdown editor */
+.markdown-editor-wrapper.dark-theme .CodeMirror {
+  color: #abb2bf;
+  background-color: #282c34;
+  border-radius: 0.375rem;
+  padding: 8px;
+  height: auto;
+  min-height: 200px;
+  border: 1px solid #30363d;
+}
+
+.markdown-editor-wrapper.dark-theme .CodeMirror-cursor {
+  border-left: 1px solid #abb2bf;
+}
+
+.markdown-editor-wrapper.dark-theme .CodeMirror-selected {
+  background-color: rgba(110, 118, 129, 0.4);
+}
+
+.markdown-editor-wrapper.dark-theme .CodeMirror-line {
+  padding: 0 8px;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-toolbar {
+  background-color: #282c34;
+  border: 1px solid #30363d;
+  border-bottom: none;
+  border-radius: 0.375rem 0.375rem 0 0;
+  opacity: 0.8;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-toolbar a {
+  color: #abb2bf !important;
+  border: 1px solid transparent;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-toolbar a:hover {
+  background: #30363d;
+  border: 1px solid #30363d;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-toolbar a.active {
+  background: #30363d;
+  border: 1px solid #30363d;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-toolbar.disabled-for-preview a:not(.no-disable) {
+  background: transparent;
+  color: #4b5563 !important;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-preview {
+  background-color: #282c34;
+  color: #abb2bf;
+  padding: 8px;
+}
+
+/* Code highlighting in editor preview */
+.markdown-editor-wrapper.dark-theme .editor-preview pre {
+  background-color: #1e222a;
+  color: #abb2bf;
+  padding: 1em;
+  border-radius: 0.375rem;
+  margin: 1em 0;
+  overflow-x: auto;
+}
+
+.markdown-editor-wrapper.dark-theme .editor-preview code {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  background-color: rgba(110, 118, 129, 0.4);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+/* Fix placeholder text visibility in the editor */
+.markdown-editor-wrapper.dark-theme .CodeMirror-placeholder {
+  color: #8b949e !important;
+  opacity: 0.8;
+}
+
+/* Dark mode overrides - ensure our colors take precedence */
+.dark .bg-gray-800 {
+  background-color: var(--color-secondary) !important;
+}
+
+.dark .bg-gray-900 {
+  background-color: var(--color-primary) !important;
+}
+
+.dark .bg-teal-600, 
+.dark .bg-teal-700, 
+.bg-teal-600, 
+.bg-teal-700 {
+  background-color: var(--color-accent) !important;
+}
+
+.dark .text-teal-500, 
+.dark .text-teal-600,
+.text-teal-500,
+.text-teal-600 {
+  color: var(--color-accent) !important;
+}
+
+.dark .hover\:bg-teal-700:hover,
+.hover\:bg-teal-700:hover {
+  background-color: var(--color-accent-hover) !important;
+}
+
+.dark .hover\:text-teal-400:hover,
+.hover\:text-teal-400:hover {
+  color: var(--color-accent-hover) !important;
+}
+
+/* Add syntax highlighting styles for code blocks */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+  color: #abb2bf;
+  background: #282c34;
+  border-radius: 0.375rem;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75;
+}
+
+.hljs-literal {
+  color: #56b6c2;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta-string {
+  color: #98c379;
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #e6c07b;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}
+
+/* Improve code block display in both editor and preview */
+.markdown-editor-wrapper.dark-theme .CodeMirror-code pre.CodeMirror-line {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+}
+
+.prose pre code {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  background-color: #282c34 !important;
+  color: #abb2bf !important;
+  padding: 1em;
+  border-radius: 0.375rem;
+  font-size: 0.9em;
+  line-height: 1.6;
+  display: block;
+}
+
+.prose code {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(110, 118, 129, 0.4);
+  border-radius: 6px;
+}
+
+/* Override specific styles for better rendering in dark mode */
+.prose {
+  color: #e6edf3 !important;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  color: #f0f6fc !important;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+.prose p {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.prose a {
+  color: #58a6ff !important;
+  text-decoration: none;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}
+
+.prose blockquote {
+  color: #8b949e !important;
+  border-left-color: #30363d !important;
+}
+
+.prose ul, .prose ol {
+  padding-left: 2em;
+}
+
+.prose li {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+/* Styles for @uiw/react-md-editor */
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-toolbar {
+  background-color: #21252b;
+  border-bottom: 1px solid #30363d;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-toolbar li button {
+  color: #abb2bf;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-toolbar li button:hover {
+  background-color: #30363d;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-toolbar li.active button {
+  background-color: #30363d;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-preview {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+
+/* Code highlighting in editor */
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text-pre {
+  color: #abb2bf;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text-pre .token.keyword {
+  color: #c678dd;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text-pre .token.operator {
+  color: #56b6c2;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text-pre .token.string {
+  color: #98c379;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text-pre .token.comment {
+  color: #5c6370;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text-pre .token.function {
+  color: #61aeee;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text-pre .token.number {
+  color: #d19a66;
+}
+
+/* Code blocks in preview */
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown pre {
+  background-color: #21252b;
+  border: 1px solid #30363d;
+  padding: 16px;
+  border-radius: 6px;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown code {
+  font-family: 'Menlo', Monaco, 'Courier New', monospace;
+  background-color: rgba(110, 118, 129, 0.4);
+  color: #e6edf3;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 85%;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown pre code {
+  background-color: transparent;
+  padding: 0;
+  color: #abb2bf;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Placeholder styling */
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text-input::placeholder {
+  color: #8b949e;
+}
+
+/* Improved editor scrollbars */
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text::-webkit-scrollbar,
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text::-webkit-scrollbar-thumb,
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 4px;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .w-md-editor-text::-webkit-scrollbar-track,
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown::-webkit-scrollbar-track {
+  background-color: #282c34;
+}
+
+/* Preview rendering improvements */
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown {
+  background-color: #282c34;
+  color: #abb2bf;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown h1,
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown h2,
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown h3,
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown h4 {
+  color: #e6edf3;
+  border-bottom: 1px solid #30363d;
+  padding-bottom: 0.3em;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown blockquote {
+  color: #8b949e;
+  border-left: 3px solid #30363d;
+  padding-left: 1em;
+  margin-left: 0;
+}
+
+.markdown-editor-wrapper [data-color-mode="dark"] .wmde-markdown a {
+  color: #58a6ff;
+}
+
+/* Light mode improvements for sidebar and navigation */
+html.light-mode .sidebar {
+  border-right: 1px solid var(--color-border);
+  background-color: #F9FAFB;
+}
+
+html.light-mode .sidebar a,
+html.light-mode .sidebar button {
+  color: #4B5563;
+}
+
+html.light-mode .sidebar a:hover,
+html.light-mode .sidebar button:hover {
+  background-color: #F3F4F6;
+}
+
+html.light-mode .sidebar a.active {
+  background-color: #F3F4F6;
+  color: #EF4444;
+  font-weight: 600;
+}
+
+/* Improve collapse button visibility */
+html.light-mode .collapse-button {
+  color: #4B5563;
+  background-color: #F3F4F6;
+  border: 1px solid var(--color-border);
+}
+
+/* Improve form inputs in light mode */
+html.light-mode input[type="text"],
+html.light-mode input[type="email"],
+html.light-mode input[type="password"],
+html.light-mode select,
+html.light-mode textarea {
+  border: 1px solid #D1D5DB;
+  background-color: #FFFFFF;
+  color: #1F2937;
+}
+
+html.light-mode input[type="text"]:focus,
+html.light-mode input[type="email"]:focus,
+html.light-mode input[type="password"]:focus,
+html.light-mode select:focus,
+html.light-mode textarea:focus {
+  border-color: #6B7280;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Improve prompt detail view in light mode */
+html.light-mode .prompt-detail-container {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+html.light-mode .prompt-title {
+  color: #111827;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+html.light-mode .prompt-body {
+  color: #374151;
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+}
+
+/* Add more visible styling for dropdowns and selectors */
+html.light-mode select,
+html.light-mode .dropdown-container {
+  background-color: white;
+  border: 1px solid #D1D5DB;
+  color: #374151;
+}
+
+/* Improve back button visibility */
+html.light-mode .back-button {
+  color: #4B5563;
+}
+
+html.light-mode .back-button:hover {
+  color: #111827;
+}
+
+/* Improve the new prompt button and plus button visibility */
+html.light-mode .new-prompt-button,
+html.light-mode .sidebar-add-button {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+}
+
+html.light-mode .new-prompt-button:hover,
+html.light-mode .sidebar-add-button:hover {
+  background-color: #DC2626;
+}
+
+/* More specific improvements based on the red arrows in the screenshots */
+
+/* Improve sidebar toggle button specifically */
+html.light-mode .sidebar-toggle-button {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+html.light-mode .sidebar-toggle-button:hover {
+  background-color: #E5E7EB;
+  color: #1F2937;
+}
+
+/* Improve form header/close button */
+html.light-mode .form-header-close,
+html.light-mode .modal-close-button {
+  color: #6B7280;
+  background-color: #F9FAFB;
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+
+html.light-mode .form-header-close:hover,
+html.light-mode .modal-close-button:hover {
+  background-color: #F3F4F6;
+  color: #111827;
+}
+
+/* Improve input fields and form elements */
+html.light-mode input,
+html.light-mode textarea,
+html.light-mode select {
+  border: 1px solid #D1D5DB;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+html.light-mode input:hover,
+html.light-mode textarea:hover,
+html.light-mode select:hover {
+  border-color: #9CA3AF;
+}
+
+html.light-mode input:focus,
+html.light-mode textarea:focus,
+html.light-mode select:focus {
+  border-color: #6B7280;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  outline: none;
+}
+
+/* Style placeholder text */
+html.light-mode input::placeholder,
+html.light-mode textarea::placeholder {
+  color: #9CA3AF;
+}
+
+/* Improve prompt content visibility */
+html.light-mode .prompt-content {
+  color: #374151; 
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  padding: 1rem;
+  border-radius: 0.375rem;
+}
+
+/* Improve folder dropdown */
+html.light-mode .folder-select {
+  background-color: white;
+  border: 1px solid #D1D5DB;
+  color: #374151;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  width: 100%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+html.light-mode .folder-select:focus {
+  border-color: #6B7280;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Specific styling for form sections */
+html.light-mode .form-section {
+  border-bottom: 1px solid #E5E7EB;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+html.light-mode .form-section-title {
+  color: #111827;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Better styling for title input specifically */
+html.light-mode .title-input {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #111827;
+  padding: 0.625rem;
+}
+
+/* Improve action buttons */
+html.light-mode .action-button {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+html.light-mode .action-button:hover {
+  background-color: #E5E7EB;
+  color: #1F2937;
+}
+
+html.light-mode .action-button-primary {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+}
+
+html.light-mode .action-button-primary:hover {
+  background-color: #DC2626;
+}
+
+/* Target exact selectors for sidebar toggle and expand/collapse buttons */
+html.light-mode .group .collapse-button,
+html.light-mode #sidebar-toggle,
+html.light-mode button[aria-label="Toggle sidebar"] {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+html.light-mode .group .collapse-button:hover,
+html.light-mode #sidebar-toggle:hover,
+html.light-mode button[aria-label="Toggle sidebar"]:hover {
+  background-color: #E5E7EB;
+  color: #1F2937;
+}
+
+/* Target exact modal close buttons */
+html.light-mode button[aria-label="Close"],
+html.light-mode .close-button,
+html.light-mode .modal-close {
+  color: #6B7280;
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+
+html.light-mode button[aria-label="Close"]:hover,
+html.light-mode .close-button:hover,
+html.light-mode .modal-close:hover {
+  background-color: #F3F4F6;
+  color: #111827;
+}
+
+/* More specific styles for prompt content and title */
+html.light-mode .prompt-item,
+html.light-mode .prompt-detail {
+  color: #1F2937;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+html.light-mode .prompt-item:hover {
+  background-color: #F9FAFB;
+}
+
+html.light-mode .prompt-title h1,
+html.light-mode .prompt-name {
+  color: #111827;
+  font-weight: 600;
+}
+
+/* Target specific form elements in the prompt form */
+html.light-mode form input[type="text"],
+html.light-mode form input[type="email"],
+html.light-mode form input[type="password"],
+html.light-mode form select,
+html.light-mode form textarea,
+html.light-mode .title-input {
+  background-color: #FFFFFF;
+  color: #1F2937;
+  border: 1px solid #D1D5DB;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Style form section headers */
+html.light-mode form label,
+html.light-mode .form-label {
+  color: #4B5563;
+  font-weight: 500;
+}
+
+/* Style form action buttons */
+html.light-mode .cancel-button,
+html.light-mode button[type="button"]:not(.action-button-primary):not(.new-prompt-button) {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+}
+
+html.light-mode .submit-button,
+html.light-mode button[type="submit"],
+html.light-mode .save-button {
+  background-color: #EF4444;
+  color: white;
+  border: none;
+}
+
+/* Fix the markdown editor specifically for light mode */
+html.light-mode .markdown-body,
+html.light-mode .markdown-content,
+html.light-mode .rc-md-editor {
+  color: #1F2937 !important;
+  background-color: #FFFFFF !important;
+}
+
+html.light-mode .rc-md-editor .editor-container .sec-md,
+html.light-mode .rc-md-editor .editor-container .input {
+  background-color: #FFFFFF !important;
+  color: #1F2937 !important;
+}
+
+/* Target the empty prompt content area specifically */
+html.light-mode .prompt-body:empty,
+html.light-mode .prompt-content:empty {
+  background-color: #F9FAFB;
+  border: 1px dashed #D1D5DB;
+  padding: 1rem;
+  color: #6B7280;
+  font-style: italic;
+}
+
+html.light-mode .prompt-body:empty::before,
+html.light-mode .prompt-content:empty::before {
+  content: "No content available";
+  color: #9CA3AF;
+}
+
+/* Additional light mode fixes for specific components */
+html.light-mode .sidebar {
+  background-color: #F1F5F9;
+  border-right: 1px solid #E2E8F0;
+}
+
+html.light-mode .sidebar button,
+html.light-mode .sidebar a {
+  color: #0F172A;
+}
+
+html.light-mode .sidebar button:hover,
+html.light-mode .sidebar a:hover {
+  background-color: #E2E8F0;
+}
+
+html.light-mode .sidebar button svg,
+html.light-mode .sidebar a svg {
+  color: #64748B; 
+}
+
+html.light-mode .sidebar .text-accent {
+  color: #FA3811 !important;
+}
+
+/* Fixing modal backgrounds and text in light mode */
+html.light-mode .fixed.inset-0.bg-black\/50,
+html.light-mode .fixed.inset-0.bg-black.bg-opacity-50 {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+html.light-mode .fixed.top-1\/2.left-1\/2.-translate-x-1\/2.-translate-y-1\/2.bg-\[\#032024\] {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+/* Fix for modal content and headings */
+html.light-mode [role="dialog"] h2,
+html.light-mode [role="dialog"] h3,
+html.light-mode [role="dialog"] .text-white,
+html.light-mode [role="dialog"] .text-lg.font-normal.text-white {
+  color: #0F172A !important;
+}
+
+/* Fix for prompt detail page */
+html.light-mode .prompt-detail-content,
+html.light-mode .prompt-body {
+  background-color: #FFFFFF;
+  color: #0F172A;
+}
+
+html.light-mode .prompt-body pre,
+html.light-mode .prompt-body code {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* Fix for folder and tag icons in sidebar when collapsed */
+html.light-mode .sidebar-collapsed-icon {
+  color: #0F172A;
+  background-color: #E2E8F0;
+}
+
+/* Fix for form inputs in light mode */
+html.light-mode input,
+html.light-mode textarea,
+html.light-mode select {
+  background-color: #FFFFFF;
+  border-color: #E2E8F0;
+  color: #0F172A;
+}
+
+html.light-mode input:focus,
+html.light-mode textarea:focus,
+html.light-mode select:focus {
+  border-color: #FA3811;
+  box-shadow: 0 0 0 2px rgba(250, 56, 17, 0.2);
+}
+
+/* Fix for tag manager modal */
+html.light-mode .tag-manager-title,
+html.light-mode .manage-tags-heading {
+  color: #0F172A !important;
 }
