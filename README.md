@@ -68,6 +68,7 @@ A complete starter template for building modern web applications with Next.js.
 - **UI Components**: Styled with Tailwind CSS and Radix UI
 - **API Routes**: Next.js API routes for backend functionality
 - **OpenAI Integration**: Ready-to-use API route for OpenAI requests
+- **TypeScript**: Static type checking for improved developer experience and code quality
 
 ## Environment Variables
 

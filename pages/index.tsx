@@ -14,8 +14,8 @@ export default function LandingPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Navigation */}
-      <nav className="bg-[#011B1F] shadow-sm">
+      {/* Navigation - Fixed to be accessible on all devices */}
+      <nav className="sticky top-0 left-0 right-0 z-50 bg-[#032024]/90 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex">
@@ -43,45 +43,54 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-            <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
-              <h1 className="text-4xl tracking-tight text-white sm:text-5xl md:text-6xl">
-                <span>Launch Your Next.js App </span>
-                <span className="text-[#FA3811]">In Days</span>
-              </h1>
-              <p className="mt-6 text-xl text-gray-300">
-                Stop wasting time configuring boilerplate code. Our pre-built fullstack template gives entrepreneurs and developers everything they need to start building instead of setting up.
-              </p>
-              <div className="mt-10">
-                <a
-                  href="https://github.com/behradm/Project-Templates"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base rounded-md shadow-sm text-white bg-[#FA3811] hover:bg-[#e63510]"
-                >
-                  Download from GitHub
-                </a>
-              </div>
+      {/* Hero Section - Two Column Layout with adjusted widths */}
+      <section className="min-h-screen flex flex-col md:flex-row">
+        {/* Left Column - Image - Now 50% width on desktop */}
+        <div className="md:w-1/2 relative h-[500px] md:h-screen overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#032024]/80 z-10 md:block hidden"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#032024]/80 to-transparent z-10 md:hidden block"></div>
+          <div 
+            className="absolute inset-0"
+            style={{ 
+              backgroundImage: 'url(/images/background-image.jpg)',
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              backgroundColor: '#011B1F'
+            }}
+          ></div>
+        </div>
+        
+        {/* Right Column - Content - Now 50% width on desktop */}
+        <div className="md:w-1/2 flex items-center justify-center bg-[#032024] px-4 py-20 md:py-0">
+          <div className="max-w-md mx-auto md:mx-0 md:ml-12 lg:ml-16 z-10 text-center md:text-left">
+            <h1 className="text-4xl tracking-tight text-white sm:text-5xl md:text-[3rem]">
+              <span>Launch Your Next.js App </span>
+              <span className="text-[#FA3811]">In Days</span>
+            </h1>
+            <p className="mt-6 text-lg text-gray-300">
+              Stop wasting time configuring boilerplate code. Our pre-built fullstack template gives entrepreneurs and developers everything they need to start building instead of setting up.
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+              <a
+                href="https://github.com/behradm/Project-Templates"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base rounded-md shadow-sm text-white bg-[#FA3811] hover:bg-[#e63510]"
+              >
+                Download from GitHub
+              </a>
+              <a
+                href="#features"
+                className="inline-flex items-center justify-center px-6 py-3 border border-white text-base rounded-md shadow-sm text-white bg-transparent hover:bg-white/10"
+              >
+                Learn More
+              </a>
             </div>
-            <div className="mt-12 lg:mt-0 lg:col-span-6">
-              <div className="bg-[#011B1F] sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden shadow-xl">
-                <div className="px-4 py-8 sm:px-10">
-                  <div className="border-2 border-dashed border-gray-600 rounded-md p-6 flex items-center justify-center">
-                    <div className="space-y-6 text-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto h-12 w-12 text-[#FA3811]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                      </svg>
-                      <p className="text-sm text-gray-300">
-                        Modern Next.js template with authentication, database, and styling pre-configured
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
+            {/* Optional floating elements for visual interest */}
+            <div className="absolute bottom-10 right-10 h-20 w-20 rounded-full border border-gray-600 opacity-20 hidden md:block"></div>
+            <div className="absolute top-40 right-20 h-12 w-12 rounded-full border border-gray-600 opacity-20 hidden md:block"></div>
           </div>
         </div>
       </section>
@@ -149,7 +158,7 @@ export default function LandingPage() {
                       Authentication
                     </h3>
                     <p className="mt-3 text-base text-gray-400">
-                      NextAuth.js with GitHub OAuth and email/password authentication.
+                      NextAuth.js with GitHub OAuth, Google OAuth, and email/password authentication.
                     </p>
                   </div>
                 </div>
